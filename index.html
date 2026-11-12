@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#3a1d0b">
+<title>Karmel — Psia skarbonka</title>
+<style>
+:root{--bg:#241208;--panel:#4a260f;--panel2:#633313;--green:#f2a34a;--lime:#ffd27a;--text:#fff4df;--muted:#d8b58e;--red:#ed5548}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(ellipse at 50% 5%,#8a451b 0,#3a1d0b 38%,var(--bg) 78%);padding:28px 16px 50px}
+main{width:min(850px,100%);margin:auto}
+header{text-align:center;margin-bottom:16px}
+.brand{display:inline-flex;align-items:center;gap:12px;padding:10px 25px;border:1px solid #d58a3c;border-radius:18px;background:linear-gradient(135deg,#633313,#a65a20);box-shadow:0 0 25px #f0a34b35}
+.brand h1{font-size:clamp(30px,6vw,48px);margin:0;letter-spacing:1px;text-shadow:0 3px #4c240f}
+.brand span{font-size:30px}
+.tagline{color:var(--muted);margin:12px 0 0}
+.hero{display:flex;justify-content:center;align-items:center;min-height:310px;position:relative;margin:10px auto 0}
+.house{position:relative;width:min(390px,90vw);height:275px;filter:drop-shadow(0 12px 18px #0009);transition:all .6s ease}
+.roof{position:absolute;left:5%;top:4px;width:90%;height:100px;background:linear-gradient(145deg,#b66b32,#713915);clip-path:polygon(50% 0,100% 72%,94% 91%,50% 28%,6% 91%,0 72%);border-bottom:7px solid #4a260f}
+.roof:after{content:"";position:absolute;inset:13px 12% 0;background:linear-gradient(120deg,#e6a45d,#8a461e);clip-path:polygon(50% 0,100% 72%,94% 91%,50% 28%,6% 91%,0 72%)}
+.house-body{position:absolute;left:13%;right:13%;top:65px;bottom:0;background:linear-gradient(100deg,#c97835,#ef9b4e 45%,#a95725);border:9px solid #75401c;border-radius:16px 16px 9px 9px;box-shadow:inset 0 0 0 4px #f5b46b}
+.door{position:absolute;left:22%;right:22%;bottom:0;height:170px;background:radial-gradient(ellipse at 50% 25%,#3a1b0d,#170b07 72%);border:8px solid #8b4b22;border-bottom:0;border-radius:110px 110px 0 0;overflow:hidden}
+.paw-sign{position:absolute;top:12px;left:0;right:0;text-align:center;font-size:30px;filter:drop-shadow(0 2px #54270f)}
+.dog{position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:170px;height:150px}
+.dog-face{position:absolute;bottom:8px;left:25px;width:120px;height:116px;border-radius:48% 48% 42% 42%;background:radial-gradient(circle at 35% 28%,#ffc17a,#e77c28 70%);border:4px solid #a94d1d;box-shadow:inset -8px -8px #b95721}
+.ear{position:absolute;top:22px;width:39px;height:68px;background:#a94d1d;border-radius:60% 35% 65% 50%;z-index:2}
+.ear.left{left:14px;transform:rotate(-25deg)}.ear.right{right:14px;transform:rotate(25deg) scaleX(-1)}
+.eye{position:absolute;top:42px;width:13px;height:17px;background:#24140d;border-radius:50%;z-index:3}.eye.left{left:35px}.eye.right{right:35px}
+.muzzle{position:absolute;left:37px;top:65px;width:47px;height:35px;background:#ffd39a;border-radius:50%}
+.nose{position:absolute;left:55px;top:65px;width:17px;height:12px;background:#2a1710;border-radius:50%;z-index:4}
+.mouth{position:absolute;left:55px;top:77px;width:20px;height:16px;border-bottom:3px solid #6c2416;border-radius:50%;z-index:4}
+.collar{position:absolute;bottom:18px;left:34px;width:102px;height:12px;border-radius:8px;background:#d72d32;z-index:5}
+.bell{position:absolute;bottom:2px;left:78px;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#ffe47b,#b87913);border:2px solid #7c4a0b;z-index:6}
+.bell:after{content:"";position:absolute;width:3px;height:4px;background:#70430b;bottom:-4px;left:7px;border-radius:2px}
+.crown{display:none;position:absolute;z-index:8;top:-9px;left:58px;font-size:37px;filter:drop-shadow(0 2px 2px #5b3700)}
+.glasses{display:none;position:absolute;z-index:7;top:43px;left:25px;width:70px;height:22px;border:4px solid #171717;border-radius:7px;background:linear-gradient(90deg,transparent 46%,#171717 46%,#171717 54%,transparent 54%)}
+.glasses:before,.glasses:after{content:"";position:absolute;top:0;width:26px;height:15px;border:3px solid #171717;border-radius:5px;background:#8bd8ef55}
+.glasses:before{left:-2px}.glasses:after{right:-2px}
+.house.stage-1 .house-body{background:linear-gradient(100deg,#c97835,#f2aa62 45%,#a95725)}
+.house.stage-2 .house-body{background:linear-gradient(100deg,#bd743a,#ffbd70 45%,#a95725);border-color:#a96a2c;box-shadow:inset 0 0 0 5px #ffe0a0,0 0 18px #f0a34b66}
+.house.stage-3 .house-body{background:linear-gradient(100deg,#c58b4b,#ffe0a0 45%,#a96b35);border-color:#e0b76a;box-shadow:inset 0 0 0 5px #fff0bf,0 0 25px #f5c76c88}
+.house.stage-4 .house-body{background:linear-gradient(100deg,#e5b66d,#fff0b9 45%,#bf7d3b);border:10px solid #e6c46d;box-shadow:inset 0 0 0 5px #fff8d9,0 0 35px #ffe66b;}
+.house.stage-4 .roof{background:linear-gradient(145deg,#e9d18a,#9b682d)}
+.house.stage-4 .door{border-color:#e0bd67}
+.tail{position:absolute;right:3px;bottom:32px;width:54px;height:23px;border:12px solid #d96e25;border-left:0;border-bottom:0;border-radius:0 100% 0 0;transform:rotate(-20deg);transform-origin:left bottom;z-index:1}
+.tail.wag{animation:wag .65s ease-in-out 2}
+@keyframes wag{0%,100%{transform:rotate(-20deg)}50%{transform:rotate(35deg)}}
+.ground{height:10px;width:100%;background:radial-gradient(ellipse,#b96b2b,#4a260f 70%);border-radius:50%;margin-top:-5px}
+.balance-card,.goal-card,.controls,.level-card{background:linear-gradient(145deg,#633313,#3a1d0b);border:1px solid #9b5a28;border-radius:22px;box-shadow:0 10px 30px #0005;padding:20px;margin:15px 0}
+.balance-card{text-align:center;border-color:#e5a04c;box-shadow:0 0 25px #f0a34b25}
+.small-label{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:2px}
+.balance{font-size:clamp(40px,9vw,65px);font-weight:850;letter-spacing:-2px;margin:4px 0;color:white}
+.balance .currency{color:var(--green)}
+.goal-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.goal-top strong{font-size:21px}.goal-top b{color:var(--green)}
+.track{height:17px;background:#061008;border:1px solid #9b6b40;border-radius:30px;overflow:hidden;margin:14px 0 8px}
+.fill{height:100%;width:0%;background:linear-gradient(90deg,#d8792f,#ffd27a);border-radius:30px;transition:width .5s}
+.goal-caption{text-align:center;color:var(--muted);font-size:14px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{border:0;border-radius:15px;padding:15px 12px;font-size:17px;font-weight:800;color:white;cursor:pointer;transition:transform .15s,filter .15s}
+button:hover{filter:brightness(1.1);transform:translateY(-2px)}button:active{transform:scale(.98)}
+.add{background:linear-gradient(#f4b45e,#c56a26);box-shadow:0 5px 0 #8a451b}.subtract{background:linear-gradient(#ff7468,#c72f2a);box-shadow:0 5px 0 #78221e}
+.custom{grid-column:1/-1;background:#70401d;border:1px solid #bd7a3b}
+.level-card{text-align:center}.level-name{font-size:22px;font-weight:800;color:var(--lime)}.level-desc{color:var(--muted);margin:5px 0 0}
+footer{text-align:center;color:#b89470;font-size:12px;margin-top:24px}
+@media(max-width:520px){body{padding:18px 12px 35px}.hero{min-height:280px}.house{transform:scale(.9)}.controls{gap:10px}.controls button{font-size:15px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="brand"><span>🐾</span><h1>KARMEL</h1><span>🐾</span></div>
+  <p class="tagline">Każda złotówka sprawia, że Karmel ma coraz lepszy domek!</p>
+</header>
+<section class="hero" aria-label="Buda i piesek Karmel">
+  <div class="house" id="house">
+    <div class="roof"></div>
+    <div class="house-body"><div class="paw-sign">🐾</div>
+      <div class="door"><div class="dog">
+        <div class="crown" id="crown">👑</div><div class="tail" id="tail"></div>
+        <div class="ear left"></div><div class="ear right"></div>
+        <div class="dog-face"><div class="eye left"></div><div class="eye right"></div><div class="glasses" id="glasses"></div>
+          <div class="muzzle"></div><div class="nose"></div><div class="mouth"></div><div class="collar"></div><div class="bell"></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+<div class="ground"></div>
+<section class="balance-card"><div class="small-label">Publiczna skarbonka Karmela</div><div class="balance"><span class="currency">zł</span> <span id="balance">0,00</span></div></section>
+<section class="goal-card"><div class="goal-top"><strong>🏆 Cel Karmela</strong><strong><b>1000 zł</b></strong></div><div class="track"><div class="fill" id="fill"></div></div><div class="goal-caption" id="goalCaption">0,00 zł z 1000 zł • 0%</div></section>
+<section class="controls"><button class="add" id="add">＋ Dodaj 10 zł</button><button class="subtract" id="subtract">－ Odejmij 10 zł</button><button class="custom" id="custom">✏️ Wpisz własną kwotę</button></section>
+<section class="level-card"><div class="small-label">Poziom Karmela</div><div class="level-name" id="levelName">🐶 Mały domek</div><p class="level-desc" id="levelDesc">Karmel dopiero zaczyna swoją przygodę!</p></section>
+<footer>Strona Karmela • Wersja 1.0</footer>
+</main>
+<script>
+const TARGET = 1000;
+let balance = Number(localStorage.getItem("karmelBalance") || 0);
+const money = n => n.toLocaleString("pl-PL",{minimumFractionDigits:2,maximumFractionDigits:2});
+function update(){
+  balance = Math.max(0, Math.round(balance*100)/100);
+  localStorage.setItem("karmelBalance", balance.toFixed(2));
+  document.getElementById("balance").textContent = money(balance);
+  const pct = Math.min(100, balance/TARGET*100);
+  document.getElementById("fill").style.width = pct + "%";
+  document.getElementById("goalCaption").textContent = `${money(balance)} zł z 1000,00 zł • ${Math.floor(pct)}%`;
+  const levels = [[0,"🐶 Mały domek","Karmel dopiero zaczyna swoją przygodę!"],[100,"🛖 Przytulna buda","Pojawiło się wygodne posłanie i ładniejszy domek."],[250,"🏡 Super buda","Karmel ma już większą budę i dużo zabawek!"],[500,"🏠 Psi pałacyk","Ale luksus! Karmel ma teraz prawdziwy psi pałacyk."],[750,"👑 Willa Karmela","Korona, okulary i wielka willa — Karmel jest królem!"]];
+  let level=levels[0]; for(const item of levels){if(balance>=item[0])level=item;}
+  document.getElementById("levelName").textContent=level[1];document.getElementById("levelDesc").textContent=level[2];
+  const house=document.getElementById("house");house.classList.remove("stage-1","stage-2","stage-3","stage-4");
+  const stage=balance>=750?4:balance>=500?3:balance>=250?2:balance>=100?1:0;
+  if(stage>0)house.classList.add("stage-"+stage);
+  house.style.transform=stage===4?"scale(1.12)":stage===3?"scale(1.06)":stage===2?"scale(1.03)":"scale(1)";
+  document.getElementById("crown").style.display=stage===4?"block":"none";document.getElementById("glasses").style.display=stage===4?"block":"none";
+  house.style.filter=stage===4?"drop-shadow(0 0 22px #ffe66b)":"drop-shadow(0 12px 18px #0009)";
+}
+function change(amount){balance=Math.max(0,Math.round((balance+amount)*100)/100);update();}
+document.getElementById("add").addEventListener("click",()=>change(10));
+document.getElementById("subtract").addEventListener("click",()=>change(-10));
+document.getElementById("custom").addEventListener("click",()=>{const raw=prompt("Wpisz kwotę w zł (np. 5 albo 12,50):");if(raw===null)return;const amount=Number(raw.replace(",","."));if(!Number.isFinite(amount)||amount<=0){alert("Wpisz poprawną kwotę większą od zera.");return;}const action=confirm("OK = dodać pieniądze. Anuluj = odjąć pieniądze.");change(action?amount:-amount);});
+function wagTail(){const tail=document.getElementById("tail");tail.classList.remove("wag");void tail.offsetWidth;tail.classList.add("wag");}
+setInterval(wagTail,10000);update();
+</script>
+</body>
+</html>
