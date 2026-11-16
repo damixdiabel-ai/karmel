@@ -205,6 +205,13 @@ const upgradeDefs=[
  {id:'speed',name:'Szybsza regeneracja',icon:'⚡',desc:'Przycisk kości szybciej wraca do gotowości.',costs:[750,3000,12000,60000,300000],values:[800,500,250,100,50],max:5}
 ];
 const shopItems=[
+ {id:'shades',name:'Okulary Karmela',icon:'🕶️',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
+ {id:'chain',name:'Łańcuch',icon:'⛓️',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
+ {id:'watch',name:'Zegarek',icon:'⌚',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
+ {id:'hat',name:'Zwykła czapka',icon:'🧢',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
+ {id:'shoes',name:'Buty',icon:'👟',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
+ {id:'scarf',name:'Szalik',icon:'🧣',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
+ {id:'bow',name:'Muszka',icon:'🎀',cost:0,desc:'Podstawowy dodatek Karmela.',basic:true},
  {id:'chicken',name:'Czapka kurczaka',icon:'🐔',cost:50000,desc:'Zabawna czapka dla Karmela.'},
  {id:'winter',name:'Czapka zimowa KUBA',icon:'🧢',cost:67000,desc:'Ciepła czapka z żółtym napisem KUBA.'},
  {id:'cheese',name:'Serowe ubranko',icon:'🧀',cost:100000,desc:'Karmel zamienia się w chodzący kawałek sera.'},
@@ -214,6 +221,7 @@ let bones=Math.max(0,Number(localStorage.getItem('karmelBones')||0));
 let unlockedPortals=JSON.parse(localStorage.getItem('karmelUnlockedPortals')||'[true,false,false,false,false]');
 let upgrades=JSON.parse(localStorage.getItem('karmelBoneUpgrades')||'{"power":0,"speed":0}');
 let ownedItems=JSON.parse(localStorage.getItem('karmelOwnedItems')||'[]');
+['shades','chain','watch','hat','shoes','scarf','bow'].forEach(id=>{if(!ownedItems.includes(id))ownedItems.push(id)});
 let equippedItems=JSON.parse(localStorage.getItem('karmelEquippedItems')||'{}');
 let activePortal=0,boneReady=true,boneTimer=null,gameView='home';
 function saveBoneGame(){localStorage.setItem('karmelBones',String(bones));localStorage.setItem('karmelUnlockedPortals',JSON.stringify(unlockedPortals));localStorage.setItem('karmelBoneUpgrades',JSON.stringify(upgrades));localStorage.setItem('karmelOwnedItems',JSON.stringify(ownedItems));localStorage.setItem('karmelEquippedItems',JSON.stringify(equippedItems))}
@@ -253,7 +261,7 @@ function buyUpgrade(id){
  const u=upgradeDefs.find(x=>x.id===id);if(!u)return;let level=upgrades[id]||0;if(level>=u.max){alert('To ulepszenie ma już maksymalny poziom!');return}let cost=u.costs[level];if(bones<cost){alert('Nie masz tylu kości!');return}if(!confirm('Kupić „'+u.name+'” za '+boneFormat(cost)+' kości?'))return;bones-=cost;upgrades[id]=level+1;saveBoneGame();refreshBoneUI();renderUpgrades(document.getElementById('gameSubView'));
 }
 function renderShop(el){
- const rows=shopItems.map(item=>{let owned=ownedItems.includes(item.id);return '<div class="game-item"><span class="item-icon">'+item.icon+'</span><h4>'+item.name+'</h4><p>'+item.desc+'<br>Cena: 🦴 '+boneFormat(item.cost)+'</p><button class="action" '+(owned?'disabled':'')+' onclick="buyShopItem(\''+item.id+'\')">'+(owned?'✓ Kupiono':'Kup • 🦴 '+boneFormat(item.cost))+'</button></div>'}).join('');
+ const rows=shopItems.filter(item=>!item.basic).map(item=>{let owned=ownedItems.includes(item.id);return '<div class="game-item"><span class="item-icon">'+item.icon+'</span><h4>'+item.name+'</h4><p>'+item.desc+'<br>Cena: 🦴 '+boneFormat(item.cost)+'</p><button class="action" '+(owned?'disabled':'')+' onclick="buyShopItem(\''+item.id+'\')">'+(owned?'✓ Kupiono':'Kup • 🦴 '+boneFormat(item.cost))+'</button></div>'}).join('');
  el.innerHTML='<h3>🛍️ Sklep Karmela</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><div class="game-items">'+rows+'</div>';
 }
 function buyShopItem(id){
