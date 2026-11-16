@@ -234,9 +234,10 @@ const boneShopItems=[
  {id:'skull',name:'Czaszkowa kość',icon:'💀',cost:90000,desc:'Odnowienie przycisku szybsze o 10%.',yield:0,cooldown:0.9}
 ];
 let ownedBoneTypes=JSON.parse(localStorage.getItem('karmelOwnedBoneTypes')||'[]');
+let earnedTrophies=JSON.parse(localStorage.getItem('karmelEarnedTrophies')||'[]');
 let activePortal=0,boneReady=true,boneTimer=null,gameView='home',specialBoneType=null,specialBoneTimer=null,boostTimer=null,boneMultiplier=1;
 const portalMultipliers=[1,1.2,1.4,1.6,2];
-function saveBoneGame(){localStorage.setItem('karmelBones',String(bones));localStorage.setItem('karmelUnlockedPortals',JSON.stringify(unlockedPortals));localStorage.setItem('karmelBoneUpgrades',JSON.stringify(upgrades));localStorage.setItem('karmelOwnedItems',JSON.stringify(ownedItems));localStorage.setItem('karmelEquippedItems',JSON.stringify(equippedItems));localStorage.setItem('karmelOwnedBoneTypes',JSON.stringify(ownedBoneTypes))}
+function saveBoneGame(){localStorage.setItem('karmelBones',String(bones));localStorage.setItem('karmelUnlockedPortals',JSON.stringify(unlockedPortals));localStorage.setItem('karmelBoneUpgrades',JSON.stringify(upgrades));localStorage.setItem('karmelOwnedItems',JSON.stringify(ownedItems));localStorage.setItem('karmelEquippedItems',JSON.stringify(equippedItems));localStorage.setItem('karmelOwnedBoneTypes',JSON.stringify(ownedBoneTypes));localStorage.setItem('karmelEarnedTrophies',JSON.stringify(earnedTrophies))}
 function relicYieldMultiplier(){return 1+boneShopItems.filter(x=>ownedBoneTypes.includes(x.id)).reduce((sum,x)=>sum+x.yield,0)}
 function relicCooldownMultiplier(){return boneShopItems.filter(x=>ownedBoneTypes.includes(x.id)&&x.cooldown>0).reduce((mult,x)=>mult*x.cooldown,1)}
 function setPortalTheme(i){document.body.classList.remove('portal-ocean','portal-forest','portal-fire','portal-legend');if(i===1)document.body.classList.add('portal-ocean');if(i===2)document.body.classList.add('portal-forest');if(i===3)document.body.classList.add('portal-fire');if(i===4)document.body.classList.add('portal-legend')}
@@ -256,7 +257,7 @@ function choosePortal(i){
  if(unlockedPortals[i]){activePortal=i;document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';setPortalTheme(i);refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
  const cost=boneCosts[i];if(!confirm('Czy chcesz kupić portal „'+portalNames[i]+'” za '+boneFormat(cost)+' kości?'))return;
  if(bones<cost){alert('Nie masz tylu kości! Potrzebujesz jeszcze '+boneFormat(cost-bones)+' 🦴.');return}
- bones-=cost;unlockedPortals[i]=true;saveBoneGame();refreshBoneUI();showPortalCelebration(i);
+ bones-=cost;unlockedPortals[i]=true;if(!earnedTrophies.includes(i))earnedTrophies.push(i);saveBoneGame();refreshBoneUI();showPortalCelebration(i);
 }
 function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGate').style.display='block';document.getElementById('gameSubView').style.display='none';setPortalTheme(0);refreshBoneUI()}
 function exitPortalToHome(){leavePortal();showPage('home')}
@@ -296,7 +297,7 @@ function buyShopItem(id){
 function renderInventory(el){
  const slots=Array.from({length:8},(_,i)=>{let itemId=equippedItems[String(i)],item=shopItems.find(x=>x.id===itemId);return '<button class="inventory-slot '+(item?'':'empty')+'" onclick="inventorySlot('+i+')">'+(item?item.icon:'')+(item?'<small>'+item.name+'</small>':'')+'</button>'}).join('');
  const equipped=Object.values(equippedItems).map(v=>shopItems.find(i=>i.id===v)).filter(Boolean).map(x=>x.icon+' '+x.name).join(' • ')||'Brak założonych przedmiotów';
- el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Na start masz tylko jeden darmowy przedmiot. Kolejne dodatki możesz zdobyć w sklepie.</p><div class="inventory-slots">'+slots+'</div><div id="inventoryPicker"></div><div class="center" style="margin-top:16px"><button class="action red" onclick="clearInventory()">🧹 Wyczyść ekwipunek</button></div>';
+ el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Na start masz tylko jeden darmowy przedmiot. Kolejne dodatki możesz zdobyć w sklepie.</p><div class="inventory-slots">'+slots+'</div><div id="inventoryPicker"></div><div class="game-item"><h4>🏆 Kolekcja pucharów</h4><p>Za każdy odblokowany wymiar otrzymujesz jeden puchar. Puchary zostają nawet po wyczyszczeniu postępu wymiarów.</p><div class="inventory-slots">'+[1,2,3,4].map(i=>'<div class="inventory-slot '+(earnedTrophies.includes(i)?'':'empty')+'">'+(earnedTrophies.includes(i)?'🏆':'🔒')+'<small>'+portalNames[i]+'</small></div>').join('')+'</div><b>Zdobyte puchary: '+earnedTrophies.length+'/4</b></div><div class="center" style="margin-top:16px"><button class="action red" onclick="clearInventory()">🧹 Wyczyść ekwipunek</button></div>';
 }
 function clearInventory(){if(!confirm('Wyczyścić ekwipunek? Zostanie tylko jedna darmowa rzecz — szalik.'))return;if(!confirm('Na pewno wyczyścić wszystkie założone i kupione dodatki?'))return;ownedItems=['scarf'];equippedItems={'0':'scarf'};saveBoneGame();renderInventory(document.getElementById('gameSubView'));alert('Ekwipunek wyczyszczony. Został darmowy szalik.')}
 function inventorySlot(i){
