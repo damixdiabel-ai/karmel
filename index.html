@@ -131,7 +131,7 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
   <h2>🌀 Portal Karmela</h2>
   <p class="muted">Wejdź do tajemniczego portalu, aby zobaczyć dostępne wymiary.</p>
   <div id="portalGate" class="portal-gate"><button class="portal action" onclick="showPortalChoices()">🌀 WEJDŹ DO PORTALU</button></div>
-  <div id="portalChoices" style="display:none"><h3>Wybierz swój wymiar</h3>
+  <div id="portalChoices" style="display:none"><div class="portal-topline"><button class="action dark" onclick="showPage('home')">🏡 Wyjdź do domku</button><h3>Wybierz swój wymiar</h3></div>
   <div class="portal-grid" id="portalGrid">
     <button class="portal-card p0" onclick="choosePortal(0)"><span class="portal-orb">🌀</span><b>Portal Początku</b><small>Wejście za darmo</small><span class="portal-status">OTWARTY</span></button>
     <button class="portal-card p1" onclick="choosePortal(1)"><span class="portal-orb">🌊</span><b>Ocean Kości</b><small>🦴 1 000 kości</small><span class="portal-status" id="portalLock1">🔒 ZABLOKOWANY</span></button>
@@ -141,9 +141,9 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
   </div></div>
 </div>
 <div class="panel center portal-room-panel" id="portalGame" style="display:none">
-  <div class="portal-topline"><button class="action dark" onclick="leavePortal()">← Portale</button><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
+  <div class="portal-topline"><div class="actions"><button class="action dark" onclick="leavePortal()">← Wybór portali</button><button class="action red" onclick="exitPortalToHome()">🏡 Wyjdź do domku</button></div><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
   <h2 id="activePortalTitle">Portal Początku</h2>
-  <p class="muted">Klikaj kość, zdobywaj kości i rozwijaj kolekcję Karmela!</p>
+  <p class="muted"><b>KLIKNIJ KOŚĆ = +1 KOŚĆ!</b><br>Klikaj, zdobywaj kości i rozwijaj kolekcję Karmela.</p>
   <div class="bone-stage"><button id="boneButton" class="bone-button" onclick="collectBone()" aria-label="Zbierz kość">🦴</button><span id="bonePop" class="bone-pop">+1</span></div>
   <p id="boneCooldown" class="cooldown-label">Gotowe do kliknięcia!</p>
   <div class="cooldown-track"><i id="cooldownFill"></i></div>
@@ -239,7 +239,8 @@ function choosePortal(i){
  if(bones<cost){alert('Nie masz tylu kości! Potrzebujesz jeszcze '+boneFormat(cost-bones)+' 🦴.');return}
  bones-=cost;unlockedPortals[i]=true;saveBoneGame();refreshBoneUI();showPortalCelebration(i);
 }
-function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='block';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
+function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='block';document.getElementById('portalGate').style.display='none';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
+function exitPortalToHome(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGate').style.display='block';document.getElementById('gameSubView').style.display='none';showPage('home')}
 function collectBone(){
  if(!boneReady)return;boneReady=false;bones+=clickPower();saveBoneGame();refreshBoneUI();
  const pop=document.getElementById('bonePop');pop.textContent='+'+clickPower();pop.classList.remove('show');void pop.offsetWidth;pop.classList.add('show');
