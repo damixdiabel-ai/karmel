@@ -130,10 +130,9 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
 <div class="panel center portal-hub">
   <h2>🌀 Portal Karmela</h2>
   <p class="muted">Wejdź do tajemniczego portalu, aby zobaczyć dostępne wymiary.</p>
-  <div id="portalGate" class="portal-gate"><button class="portal action" onclick="showPortalChoices()">🌀 WEJDŹ DO PORTALU</button></div>
-  <div id="portalChoices" style="display:none"><div class="portal-topline"><button class="action dark" onclick="showPage('home')">🏡 Wyjdź do domku</button><h3>Wybierz swój wymiar</h3></div>
+  <div id="portalGate" class="portal-gate"><button class="portal action" onclick="enterMainPortal()">🌀 WEJDŹ DO PORTALU</button></div>
+  <div id="portalChoices" style="display:none"><div class="portal-topline"><button class="action dark" onclick="backToPortalGate()">← Powrót do portalu</button><h3>Wybierz dodatkowy wymiar</h3></div>
   <div class="portal-grid" id="portalGrid">
-    <button class="portal-card p0" onclick="choosePortal(0)"><span class="portal-orb">🌀</span><b>Portal Początku</b><small>Wejście za darmo</small><span class="portal-status">OTWARTY</span></button>
     <button class="portal-card p1" onclick="choosePortal(1)"><span class="portal-orb">🌊</span><b>Ocean Kości</b><small>🦴 1 000 kości</small><span class="portal-status" id="portalLock1">🔒 ZABLOKOWANY</span></button>
     <button class="portal-card p2" onclick="choosePortal(2)"><span class="portal-orb">🌿</span><b>Leśny Wymiar</b><small>🦴 10 000 kości</small><span class="portal-status" id="portalLock2">🔒 ZABLOKOWANY</span></button>
     <button class="portal-card p3" onclick="choosePortal(3)"><span class="portal-orb">🔥</span><b>Kraina Ognia</b><small>🦴 100 000 kości</small><span class="portal-status" id="portalLock3">🔒 ZABLOKOWANY</span></button>
@@ -141,16 +140,17 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
   </div></div>
 </div>
 <div class="panel center portal-room-panel" id="portalGame" style="display:none">
-  <div class="portal-topline"><div class="actions"><button class="action dark" onclick="leavePortal()">← Wybór portali</button><button class="action red" onclick="exitPortalToHome()">🏡 Wyjdź do domku</button></div><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
+  <div class="portal-topline"><button class="action dark" onclick="leavePortal()">← Powrót do portalu</button><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
   <h2 id="activePortalTitle">Portal Początku</h2>
   <p class="muted"><b>KLIKNIJ KOŚĆ = +1 KOŚĆ!</b><br>Klikaj, zdobywaj kości i rozwijaj kolekcję Karmela.</p>
   <div class="bone-stage"><button id="boneButton" class="bone-button" onclick="collectBone()" aria-label="Zbierz kość">🦴</button><span id="bonePop" class="bone-pop">+1</span></div>
   <p id="boneCooldown" class="cooldown-label">Gotowe do kliknięcia!</p>
   <div class="cooldown-track"><i id="cooldownFill"></i></div>
-  <div class="game-nav" style="display:flex!important;visibility:visible!important;opacity:1!important;justify-content:center;flex-wrap:wrap;gap:12px;margin:22px 0">
-    <button class="action dark" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('upgrades')">⬆️ ULEPSZENIA</button>
-    <button class="action dark" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('shop')">🛍️ SKLEP</button>
-    <button class="action dark" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('inventory')">🎒 EKWIPUNEK</button>
+  <div class="game-nav" style="display:flex!important;visibility:visible!important;opacity:1!important;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px;margin:22px 0">
+    <button class="action dark" onclick="openGameView('upgrades')">⬆️ ULEPSZENIA</button>
+    <button class="action dark" onclick="openGameView('shop')">🛍️ SKLEP</button>
+    <button class="tab" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('inventory')">🎒 EKWIPUNEK</button>
+    <button class="action dark" onclick="showPortalChoices()">🌌 INNE WYMIARY</button>
   </div>
   <div id="gameSubView" class="game-subview" style="display:none"></div>
   <div class="admin-tools"><button class="action dark" onclick="adminBones()">🛠️ Nadaj kości</button><button class="action red" onclick="adminClearBones()">🗑️ Wyczyść kości</button></div>
@@ -232,15 +232,17 @@ function refreshBoneUI(){
  const count=document.getElementById('boneCount');if(count)count.textContent=boneFormat(bones);
  boneCosts.forEach((cost,i)=>{let card=document.querySelector('.portal-card.p'+i);if(card){card.classList.toggle('locked-portal',!unlockedPortals[i]);let status=card.querySelector('.portal-status');if(status)status.textContent=unlockedPortals[i]?'✓ ODBLOKOWANY':'🔒 ZABLOKOWANY'}});
 }
-function showPortalChoices(){document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='block'}
+function showPortalChoices(){document.getElementById('portalGame').style.display='none';document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='block'}
+function enterMainPortal(){activePortal=0;document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent='Portal Karmela';document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI()}
+function backToPortalGate(){document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='none';document.getElementById('portalGate').style.display='block';refreshBoneUI()}
 function choosePortal(i){
  if(unlockedPortals[i]){activePortal=i;document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
  const cost=boneCosts[i];if(!confirm('Czy chcesz kupić portal „'+portalNames[i]+'” za '+boneFormat(cost)+' kości?'))return;
  if(bones<cost){alert('Nie masz tylu kości! Potrzebujesz jeszcze '+boneFormat(cost-bones)+' 🦴.');return}
  bones-=cost;unlockedPortals[i]=true;saveBoneGame();refreshBoneUI();showPortalCelebration(i);
 }
-function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='block';document.getElementById('portalGate').style.display='none';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
-function exitPortalToHome(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGate').style.display='block';document.getElementById('gameSubView').style.display='none';showPage('home')}
+function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGate').style.display='block';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
+function exitPortalToHome(){leavePortal();showPage('home')}
 function collectBone(){
  if(!boneReady)return;boneReady=false;bones+=clickPower();saveBoneGame();refreshBoneUI();
  const pop=document.getElementById('bonePop');pop.textContent='+'+clickPower();pop.classList.remove('show');void pop.offsetWidth;pop.classList.add('show');
