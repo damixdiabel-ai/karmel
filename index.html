@@ -257,13 +257,19 @@ function buyShopItem(id){
  const item=shopItems.find(x=>x.id===id);if(!item||ownedItems.includes(id))return;if(bones<item.cost){alert('Nie masz tylu kości! Brakuje '+boneFormat(item.cost-bones)+'.');return}if(!confirm('Czy chcesz kupić „'+item.name+'” za '+boneFormat(item.cost)+' kości?'))return;bones-=item.cost;ownedItems.push(id);saveBoneGame();refreshBoneUI();renderShop(document.getElementById('gameSubView'));
 }
 function renderInventory(el){
- const slots=Array.from({length:8},(_,i)=>{let itemId=ownedItems[i],item=shopItems.find(x=>x.id===itemId);return '<button class="inventory-slot '+(item?'':'empty')+'" onclick="inventorySlot('+i+')">'+(item?item.icon:'')+(item?'<small>'+item.name+'</small>':'')+'</button>'}).join('');
- const equipped=Object.entries(equippedItems).filter(([k,v])=>v).map(([k,v])=>{let x=shopItems.find(i=>i.id===v);return x?x.icon+' '+x.name:''}).filter(Boolean).join(' • ')||'Brak założonych przedmiotów';
- el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Kliknij slot z przedmiotem, aby go założyć lub zdjąć. Puste sloty mają znak +.</p><div class="inventory-slots">'+slots+'</div>';
+ const slots=Array.from({length:8},(_,i)=>{let itemId=equippedItems[String(i)],item=shopItems.find(x=>x.id===itemId);return '<button class="inventory-slot '+(item?'':'empty')+'" onclick="inventorySlot('+i+')">'+(item?item.icon:'')+(item?'<small>'+item.name+'</small>':'')+'</button>'}).join('');
+ const equipped=Object.values(equippedItems).map(v=>shopItems.find(i=>i.id===v)).filter(Boolean).map(x=>x.icon+' '+x.name).join(' • ')||'Brak założonych przedmiotów';
+ el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Kliknij dowolny slot, aby wybrać przedmiot z kolekcji. Puste sloty mają znak +.</p><div class="inventory-slots">'+slots+'</div><div id="inventoryPicker"></div>';
 }
 function inventorySlot(i){
- const id=ownedItems[i];if(!id){alert('Ten slot jest pusty.');return}const item=shopItems.find(x=>x.id===id);if(!item)return;let isOn=equippedItems[item.id];if(!confirm((isOn?'Zdjąć':'Założyć')+' przedmiot: '+item.name+'?'))return;if(isOn)delete equippedItems[item.id];else equippedItems[item.id]=item.id;saveBoneGame();renderInventory(document.getElementById('gameSubView'));
+ const picker=document.getElementById('inventoryPicker');if(!picker)return;
+ if(!ownedItems.length){picker.innerHTML='<div class="game-item center"><button class="action dark" onclick="closeInventoryPicker()">✕ Zamknij</button><p>Nie masz jeszcze żadnych przedmiotów. Odwiedź sklep Karmela!</p></div>';return}
+ const choices=ownedItems.map(id=>shopItems.find(x=>x.id===id)).filter(Boolean).map(item=>'<button class="inventory-slot" onclick="equipToSlot('+i+',\\''+item.id+'\\')">'+item.icon+'<small>'+item.name+'</small></button>').join('');
+ picker.innerHTML='<div class="game-item"><div style="display:flex;justify-content:space-between;align-items:center"><b>Wybierz przedmiot do slotu '+(i+1)+'</b><button class="action dark" onclick="closeInventoryPicker()">✕</button></div><div class="inventory-slots">'+choices+'</div><button class="action red" onclick="unequipSlot('+i+')">Zdejmij przedmiot z tego slotu</button></div>';
 }
+function equipToSlot(i,id){if(!ownedItems.includes(id))return;equippedItems[String(i)]=id;saveBoneGame();renderInventory(document.getElementById('gameSubView'))}
+function unequipSlot(i){delete equippedItems[String(i)];saveBoneGame();renderInventory(document.getElementById('gameSubView'))}
+function closeInventoryPicker(){const p=document.getElementById('inventoryPicker');if(p)p.innerHTML='';}
 function adminBones(){
  const pass=prompt('Podaj hasło administratora:');if(pass===null)return;if(pass!=='@@@aleksander@@KFSZ'){alert('Nieprawidłowe hasło!');return}const raw=prompt('Ile kości dodać?');if(raw===null)return;const n=Number(raw);if(!Number.isSafeInteger(n)||n<=0){alert('Wpisz poprawną liczbę całkowitą większą od zera.');return}bones+=n;saveBoneGame();refreshBoneUI();alert('Dodano '+boneFormat(n)+' kości!')}
 function adminClearBones(){
