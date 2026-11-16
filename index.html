@@ -264,7 +264,7 @@ function renderInventory(el){
 function inventorySlot(i){
  const picker=document.getElementById('inventoryPicker');if(!picker)return;
  if(!ownedItems.length){picker.innerHTML='<div class="game-item center"><button class="action dark" onclick="closeInventoryPicker()">✕ Zamknij</button><p>Nie masz jeszcze żadnych przedmiotów. Odwiedź sklep Karmela!</p></div>';return}
- const choices=ownedItems.map(id=>shopItems.find(x=>x.id===id)).filter(Boolean).map(item=>'<button class="inventory-slot" onclick="equipToSlot('+i+',\\''+item.id+'\\')">'+item.icon+'<small>'+item.name+'</small></button>').join('');
+ const choices=ownedItems.map(id=>shopItems.find(x=>x.id===id)).filter(Boolean).map(item=>'<button class="inventory-slot" onclick="equipToSlot('+i+',\''+item.id+'\')">'+item.icon+'<small>'+item.name+'</small></button>').join('');
  picker.innerHTML='<div class="game-item"><div style="display:flex;justify-content:space-between;align-items:center"><b>Wybierz przedmiot do slotu '+(i+1)+'</b><button class="action dark" onclick="closeInventoryPicker()">✕</button></div><div class="inventory-slots">'+choices+'</div><button class="action red" onclick="unequipSlot('+i+')">Zdejmij przedmiot z tego slotu</button></div>';
 }
 function equipToSlot(i,id){if(!ownedItems.includes(id))return;equippedItems[String(i)]=id;saveBoneGame();renderInventory(document.getElementById('gameSubView'))}
