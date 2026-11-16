@@ -267,7 +267,7 @@ function collectBone(){
  const fill=document.getElementById('cooldownFill');fill.classList.remove('ready');fill.style.animationDuration=effectiveCooldown()+'ms';void fill.offsetWidth;fill.classList.add('ready');
  document.getElementById('boneCooldown').textContent='Kość się odnawia…';
  boneTimer=setTimeout(()=>{boneReady=true;button.disabled=false;fill.classList.remove('ready');document.getElementById('boneCooldown').textContent='Gotowe do kliknięcia!';boneTimer=null},effectiveCooldown());
- if(!specialBoneType){const roll=Math.random();if(roll<0.01)spawnSpecialBone('blue');else if(roll<0.09)spawnSpecialBone('gold')}
+ if(!specialBoneType){const roll=Math.random();if(roll<0.01)spawnSpecialBone('blue');else if(roll<0.02)spawnSpecialBone('gold')}
 }
 function spawnSpecialBone(type){specialBoneType=type;const b=document.getElementById('specialBoneButton');if(!b)return;b.className='special-bone '+(type==='blue'?'blue-bone':'gold-bone');b.textContent=type==='blue'?'💎 NIEBIESKA KOŚĆ x5':'🌟 ZŁOTA KOŚĆ x2';b.style.display='inline-block';if(specialBoneTimer)clearTimeout(specialBoneTimer);specialBoneTimer=setTimeout(()=>{specialBoneType=null;b.style.display='none';specialBoneTimer=null},15000)}
 function claimSpecialBone(){if(!specialBoneType)return;const type=specialBoneType;specialBoneType=null;const b=document.getElementById('specialBoneButton');b.style.display='none';if(specialBoneTimer)clearTimeout(specialBoneTimer);if(boostTimer)clearTimeout(boostTimer);boneMultiplier=type==='blue'?5:2;const status=document.getElementById('boostStatus');status.textContent=(type==='blue'?'💎 NIEBIESKA KOŚĆ x5':'🌟 ZŁOTA KOŚĆ x2')+' — bonus aktywny przez 10 sekund!';boostTimer=setTimeout(()=>{boneMultiplier=1;status.textContent='';boostTimer=null},10000)}
