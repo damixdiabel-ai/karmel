@@ -147,10 +147,10 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
   <div class="bone-stage"><button id="boneButton" class="bone-button" onclick="collectBone()" aria-label="Zbierz kość">🦴</button><span id="bonePop" class="bone-pop">+1</span></div>
   <p id="boneCooldown" class="cooldown-label">Gotowe do kliknięcia!</p>
   <div class="cooldown-track"><i id="cooldownFill"></i></div>
-  <div class="game-nav">
-    <button class="action dark" onclick="openGameView('upgrades')">⬆️ Ulepszenia</button>
-    <button class="action dark" onclick="openGameView('shop')">🛍️ Sklep</button>
-    <button class="action dark" onclick="openGameView('inventory')">🎒 Ekwipunek</button>
+  <div class="game-nav" style="display:flex!important;visibility:visible!important;opacity:1!important;justify-content:center;flex-wrap:wrap;gap:12px;margin:22px 0">
+    <button class="action dark" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('upgrades')">⬆️ ULEPSZENIA</button>
+    <button class="action dark" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('shop')">🛍️ SKLEP</button>
+    <button class="action dark" style="display:inline-flex!important;visibility:visible!important;opacity:1!important" onclick="openGameView('inventory')">🎒 EKWIPUNEK</button>
   </div>
   <div id="gameSubView" class="game-subview" style="display:none"></div>
   <div class="admin-tools"><button class="action dark" onclick="adminBones()">🛠️ Nadaj kości</button><button class="action red" onclick="adminClearBones()">🗑️ Wyczyść kości</button></div>
