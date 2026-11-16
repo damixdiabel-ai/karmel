@@ -128,15 +128,17 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
 <section id="memory" class="page"><div class="panel center"><h2>📚 Pamięć Karmela</h2><p class="muted">Zapisuję wszystkie wpłaty i wydatki, żeby nic nie umknęło!</p><div class="bookdog"><div class="book">📖</div><div class="dog"><div class="ear l"></div><div class="ear r"></div><div class="body"></div><div class="chest"></div><div class="leg a"></div><div class="leg b"></div><div class="paw a"></div><div class="paw b"></div><div class="head"><div class="eye l"></div><div class="eye r"></div><div class="snout"></div><div class="nose"></div><div class="smile"></div></div></div><div class="book">🦴</div></div><h3>🧠 Pamięć wpłat i wydatków</h3><div class="history" id="history"><p class="muted">Na razie pusto. Pierwsza wpłata pojawi się tutaj!</p></div><button class="action red" onclick="clearHistory()">Wyczyść pamięć historii</button></div></section>
 <section id="portal" class="page">
 <div class="panel center portal-hub">
-  <h2>🌀 Kraina pięciu portali</h2>
-  <p class="muted">Każdy portal prowadzi do innego wymiaru Karmela. Zbieraj kości, odblokowuj światy i zdobywaj skarby!</p>
+  <h2>🌀 Portal Karmela</h2>
+  <p class="muted">Wejdź do tajemniczego portalu, aby zobaczyć dostępne wymiary.</p>
+  <div id="portalGate" class="portal-gate"><button class="portal action" onclick="showPortalChoices()">🌀 WEJDŹ DO PORTALU</button></div>
+  <div id="portalChoices" style="display:none"><h3>Wybierz swój wymiar</h3>
   <div class="portal-grid" id="portalGrid">
     <button class="portal-card p0" onclick="choosePortal(0)"><span class="portal-orb">🌀</span><b>Portal Początku</b><small>Wejście za darmo</small><span class="portal-status">OTWARTY</span></button>
     <button class="portal-card p1" onclick="choosePortal(1)"><span class="portal-orb">🌊</span><b>Ocean Kości</b><small>🦴 1 000 kości</small><span class="portal-status" id="portalLock1">🔒 ZABLOKOWANY</span></button>
     <button class="portal-card p2" onclick="choosePortal(2)"><span class="portal-orb">🌿</span><b>Leśny Wymiar</b><small>🦴 10 000 kości</small><span class="portal-status" id="portalLock2">🔒 ZABLOKOWANY</span></button>
     <button class="portal-card p3" onclick="choosePortal(3)"><span class="portal-orb">🔥</span><b>Kraina Ognia</b><small>🦴 100 000 kości</small><span class="portal-status" id="portalLock3">🔒 ZABLOKOWANY</span></button>
     <button class="portal-card p4" onclick="choosePortal(4)"><span class="portal-orb">✨</span><b>Wymiar Legend</b><small>🦴 1 000 000 kości</small><span class="portal-status" id="portalLock4">🔒 ZABLOKOWANY</span></button>
-  </div>
+  </div></div>
 </div>
 <div class="panel center portal-room-panel" id="portalGame" style="display:none">
   <div class="portal-topline"><button class="action dark" onclick="leavePortal()">← Portale</button><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
@@ -222,13 +224,14 @@ function refreshBoneUI(){
  const count=document.getElementById('boneCount');if(count)count.textContent=boneFormat(bones);
  boneCosts.forEach((cost,i)=>{let card=document.querySelector('.portal-card.p'+i);if(card){card.classList.toggle('locked-portal',!unlockedPortals[i]);let status=card.querySelector('.portal-status');if(status)status.textContent=unlockedPortals[i]?'✓ ODBLOKOWANY':'🔒 ZABLOKOWANY'}});
 }
+function showPortalChoices(){document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='block'}
 function choosePortal(i){
- if(unlockedPortals[i]){activePortal=i;document.getElementById('portalGrid').parentElement.style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
+ if(unlockedPortals[i]){activePortal=i;document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
  const cost=boneCosts[i];if(!confirm('Czy chcesz kupić portal „'+portalNames[i]+'” za '+boneFormat(cost)+' kości?'))return;
  if(bones<cost){alert('Nie masz tylu kości! Potrzebujesz jeszcze '+boneFormat(cost-bones)+' 🦴.');return}
  bones-=cost;unlockedPortals[i]=true;saveBoneGame();refreshBoneUI();showPortalCelebration(i);
 }
-function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;document.getElementById('portalGame').style.display='none';document.getElementById('portalGrid').parentElement.style.display='block';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
+function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='block';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
 function collectBone(){
  if(!boneReady)return;boneReady=false;bones+=clickPower();saveBoneGame();refreshBoneUI();
  const pop=document.getElementById('bonePop');pop.textContent='+'+clickPower();pop.classList.remove('show');void pop.offsetWidth;pop.classList.add('show');
@@ -275,7 +278,7 @@ function adminBones(){
 function adminClearBones(){
  const pass=prompt('Podaj hasło administratora:');if(pass===null)return;if(pass!=='@@@aleksander@@KFSZ'){alert('Nieprawidłowe hasło!');return}if(!confirm('Na pewno wyczyścić wszystkie kości?'))return;if(!confirm('Ostatnie potwierdzenie — tej operacji nie można cofnąć.'))return;bones=0;saveBoneGame();refreshBoneUI();alert('Licznik kości został wyczyszczony.')}
 function showPortalCelebration(i){
- const overlay=document.getElementById('celebration');let h=overlay.querySelector('h2'),p=overlay.querySelector('p');h.textContent='🌟 PORTAL ODBLOKOWANY!';h.style.fontSize='clamp(25px,6vw,42px)';p.textContent='Udało się otworzyć: '+portalNames[i]+'! Karmel odkrywa nowy wymiar!';let rain=overlay.querySelector('.confetti-rain');rain.innerHTML='';for(let n=0;n<220;n++){let piece=document.createElement('i');piece.className='confetti-piece';piece.style.left=(Math.random()*100)+'%';piece.style.background='hsl('+Math.floor(Math.random()*360)+' 95% 62%)';piece.style.setProperty('--fall',(2+Math.random()*2.5)+'s');piece.style.setProperty('--delay',(Math.random()*.8)+'s');piece.style.setProperty('--drift',(Math.random()*220-110)+'px');rain.appendChild(piece)}overlay.classList.remove('show');void overlay.offsetWidth;overlay.classList.add('show')}
+ const overlay=document.getElementById('celebration');let h=overlay.querySelector('h2'),p=overlay.querySelector('p');const levels=[0,90,160,260,420];const count=levels[i]||90;const titles=['','🌊 OCEAN ODKRYTY!','🌿 LEŚNY WYMIAR ODKRYTY!','🔥 KRAINA OGNIA ODKRYTA!','✨ LEGENDARNY WYMIAR ODKRYTY!'];h.textContent=titles[i]||'🌟 PORTAL ODKRYTY!';h.style.fontSize='clamp(25px,6vw,42px)';p.textContent='Udało się otworzyć: '+portalNames[i]+'! '+(i===4?'To legendarne osiągnięcie!':'Karmel odkrywa nowy wymiar!');let rain=overlay.querySelector('.confetti-rain');rain.innerHTML='';for(let n=0;n<count;n++){let piece=document.createElement('i');piece.className='confetti-piece';piece.style.left=(Math.random()*100)+'%';piece.style.background='hsl('+Math.floor(Math.random()*360)+' 95% 62%)';piece.style.setProperty('--fall',(2+Math.random()*2.5)+'s');piece.style.setProperty('--delay',(Math.random()*.8)+'s');piece.style.setProperty('--drift',(Math.random()*260-130)+'px');rain.appendChild(piece)}overlay.classList.remove('show');void overlay.offsetWidth;overlay.classList.add('show')}
 
 refreshBoneUI();
 </script></body></html>
