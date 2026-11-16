@@ -120,8 +120,39 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
  .inventory-preview .dog-emoji{font-size:75px;display:block}body.portal-ocean{--bg:#071c38;--panel:#0d3155;--panel2:#14527a;--line:#3d9fc6;--gold:#a8eeff;--accent:#2b9fca;--glow:#75e3ff;background:radial-gradient(ellipse at 50% 0,#167eaa,#071c38 68%,#030b18)}body.portal-forest{--bg:#102719;--panel:#183b29;--panel2:#24543a;--line:#57976b;--gold:#c6f3a2;--accent:#54a85d;--glow:#9ce68c;background:radial-gradient(ellipse at 50% 0,#397849,#102719 68%,#06150c)}body.portal-fire{--bg:#35120c;--panel:#5b2014;--panel2:#84331c;--line:#d56a32;--gold:#ffe09a;--accent:#ff642e;--glow:#ff9a46;background:radial-gradient(ellipse at 50% 0,#b6401c,#35120c 68%,#150704)}body.portal-legend{--bg:#1a1035;--panel:#30205a;--panel2:#4b3180;--line:#a58ae8;--gold:#f4d6ff;--accent:#b18cff;--glow:#e2b8ff;background:radial-gradient(ellipse at 50% 0,#8154bd,#1a1035 68%,#080512)}
 @media(max-width:560px){.portal-card{min-height:175px}.bone-button{width:125px;height:125px;font-size:65px}.portal-room-panel{padding:13px}.inventory-slots{grid-template-columns:repeat(3,minmax(60px,1fr))}}
 
+
+/* Wielka miska Karmela */
+.bowl-hero{background:radial-gradient(ellipse at 50% 10%,#ffe6a2,#b97832 45%,#4b2414);border:4px solid #f5c66e;border-radius:30px;padding:22px 12px;overflow:hidden;position:relative}
+.big-bowl{width:min(390px,88vw);height:190px;margin:25px auto 12px;position:relative;border:12px solid #d9e5ed;border-top:8px solid #fff;border-radius:12px 12px 48% 48%;background:linear-gradient(180deg,#9bb5c5,#405c70 65%,#263d50);box-shadow:inset 0 -15px 25px #142331,0 18px 24px #0007;overflow:hidden;cursor:pointer}
+.big-bowl:before{content:"";position:absolute;inset:10px 8px 0;border-radius:0 0 50% 50%;border:3px solid #ffffff66;pointer-events:none}
+.bowl-fill{position:absolute;bottom:0;left:0;right:0;height:0%;background:repeating-linear-gradient(25deg,#a76a2d 0 13px,#d99a4e 13px 24px,#f0c477 24px 30px);transition:height .2s;border-radius:0 0 50% 50%}
+.bowl-lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:58px;filter:drop-shadow(0 5px 4px #0009);z-index:2;cursor:pointer}
+.bowl-machine{max-width:520px;margin:20px auto;padding:18px;border:3px solid #9daab2;border-radius:22px;background:linear-gradient(145deg,#647681,#293943);box-shadow:inset 0 0 20px #fff2,0 12px 25px #0006}
+.machine-top{height:45px;background:linear-gradient(#d7e0e4,#667983);border:4px solid #34434c;border-radius:12px;margin-bottom:12px}
+.machine-pistons{display:flex;justify-content:space-around;height:70px;overflow:hidden}
+.machine-pistons i{width:30px;height:65px;background:linear-gradient(90deg,#53616a,#e3edf0,#65747d);border:3px solid #27333a;border-radius:7px;transform:translateY(-48px)}
+.bowl-machine.compressing .machine-pistons i{animation:pistonPress .8s ease-in-out 3}
+@keyframes pistonPress{0%,100%{transform:translateY(-48px)}45%,65%{transform:translateY(0)}}
+.machine-key{font-size:42px;min-height:50px;opacity:0;transform:scale(.3);transition:.35s}
+.machine-key.show{opacity:1;transform:scale(1)}
+.bowl-lock.cracked{filter:grayscale(1);opacity:.4}
+.bowl-pipe{width:110px;height:115px;margin:0 auto 0;border:12px solid #c7d3da;border-bottom:0;border-radius:22px 22px 0 0;background:linear-gradient(90deg,#52636d,#e5edf0,#687984);position:relative;cursor:pointer;transform-origin:bottom center}
+.bowl-pipe:after{content:"";position:absolute;bottom:-8px;left:-25px;width:128px;height:16px;border-radius:8px;background:#aebdc5;border:3px solid #586a75}
+.bowl-pipe.shake{animation:pipeShake .22s ease-in-out}
+@keyframes pipeShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+.bowl-food-fall{position:absolute;left:50%;top:90px;font-size:20px;animation:foodDrop .7s ease-in forwards;pointer-events:none}
+@keyframes foodDrop{to{transform:translate(20px,95px) rotate(180deg);opacity:0}}
+.bowl-collectible{position:fixed;z-index:80;border:2px solid #ffe29b;border-radius:50%;width:44px;height:44px;background:radial-gradient(circle at 30% 25%,#fff7c4,#d89a36 60%,#704014);box-shadow:0 0 18px #ffd45c;display:grid;place-items:center;font-size:24px;cursor:pointer;animation:collectPulse 1s infinite alternate}
+.bowl-collectible.food{background:radial-gradient(circle at 30% 25%,#ffe4ca,#c56b36 65%,#54230f);border-color:#ffd0a2}
+@keyframes collectPulse{to{transform:scale(1.13);filter:brightness(1.2)}}
+.bowl-progress{font-size:20px;font-weight:900;color:#ffe09a}
+.bowl-win{display:none;position:fixed;inset:0;z-index:90;background:#08050bdc;place-items:center;padding:18px}
+.bowl-win.show{display:grid}
+.bowl-win-card{max-width:560px;width:100%;text-align:center;padding:30px 18px;border:3px solid #ffe08a;border-radius:28px;background:linear-gradient(145deg,#7b4b22,#29160f);box-shadow:0 0 60px #ffcb5b88;animation:celebratePop .55s}
+.bowl-dog-happy{font-size:76px;animation:bob .5s infinite alternate}
+
 </style></head>
-<body><main><header class="top"><div class="logo"><span>🐾</span><h1>KARMEL</h1><span>🐾</span></div><p class="tag">kfsz</p><div class="tabs"><button class="tab active" data-page="home">🏡 Domek</button><button class="tab" data-page="goals">🎯 Cele</button><button class="tab" data-page="charts">📈 Wykresy</button><button class="tab" data-page="memory">📚 Pamięć</button><button class="tab" data-page="portal">🌀 Portal</button><button class="tab" data-page="music">🎵 Gramofon</button></div></header>
+<body><main><header class="top"><div class="logo"><span>🐾</span><h1>KARMEL</h1><span>🐾</span></div><p class="tag">kfsz</p><div class="tabs"><button class="tab active" data-page="home">🏡 Domek</button><button class="tab" data-page="goals">🎯 Cele</button><button class="tab" data-page="charts">📈 Wykresy</button><button class="tab" data-page="memory">📚 Pamięć</button><button class="tab" data-page="portal">🌀 Portal</button><button class="tab" data-page="music">🎵 Gramofon</button><button class="tab" data-page="bowl">🥣 Miska</button></div></header>
 <section id="home" class="page active"><div class="panel center"><div class="hero"><div class="scene"><div class="house" id="dogHouse"><div class="door"></div></div><div class="dog"><div class="wardrobe"><span class="shades"></span><span class="chain"></span><span class="watch"></span><span class="hat"></span><span class="shoes"></span><span class="scarf"></span><span class="bow"></span><span class="badge">✦</span></div><div class="tail" id="tail"></div><div class="ear l"></div><div class="ear r"></div><div class="body"></div><div class="chest"></div><div class="leg a"></div><div class="leg b"></div><div class="paw a"></div><div class="paw b"></div><div class="head"><div class="eye l"></div><div class="eye r"></div><div class="snout"></div><div class="nose"></div><div class="smile"></div></div></div></div></div><h2>Hej! Jestem Karmel 🐶</h2><p class="muted" id="levelDesc">Zbieramy na moje psie marzenia!</p><div class="small-label">Skarbonka Karmela</div><div class="jar"><div class="jar-coins" id="jarCoins"></div></div><div class="big" style="font-size:clamp(32px,7vw,52px)"><span class="gold">zł</span> <span id="balance">0,00</span></div><div class="muted" id="percent">0% celu</div><button class="action dark" onclick="bark()">🐶 Posłuchaj Karmela</button><div class="lyrics-box"><div class="lyric-label">🎤 PIOSENKA KARMELA — GŁOS</div><div id="lyricLine">Włącz muzykę i śpiewaj razem z Karmelkiem!</div></div><div class="outfit-info" id="outfitInfo">🐾 Styl Karmela: naturalny — następny dodatek przy 100 zł!</div></div><div class="panel"><div class="grid"><div class="stat">🏅 Mój poziom<b id="level">Mały domek</b></div><div class="stat">🐾 Wpłaty<b id="income">0,00 zł</b></div><div class="stat">🦴 Wydatki<b id="expense">0,00 zł</b></div></div><div class="actions" style="margin-top:16px"><button class="action" onclick="change(10)">＋ Dodaj 10 zł</button><button class="action red" onclick="change(-10)">－ Odejmij 10 zł</button><button class="action dark" onclick="customAmount()">✏️ Własna kwota</button><button class="action dark" onclick="clearAll()">🧹 Wyczyść licznik</button></div></div></section>
 <section id="goals" class="page"><div class="panel center"><h2>🎯 Wielki cel Karmela</h2><p class="muted">Zbudujmy razem coś naprawdę wyjątkowego!</p><div class="big"><span class="gold" id="goalBalance">0,00</span> zł</div><h2>z 1000,00 zł</h2><div class="bar"><i id="goalBar"></i></div><p id="goalText" class="muted">Brakuje 1000,00 zł</p><div class="grid"><div class="stat">🌱 Początek<b>0 zł</b></div><div class="stat">🏡 Półmetek<b>500 zł</b></div><div class="stat">👑 Wielki finał<b>1000 zł</b></div></div></div><div class="panel"><h3>✨ Poziomy budy</h3><p>100 zł — przytulne legowisko</p><p>250 zł — większa buda i zabawki</p><p>500 zł — psi pałacyk</p><p>750 zł — willa, okulary i korona</p><p>1000 zł — spełniony wielki cel!</p></div><div class="panel"><h2>🌟 Marzenia do zdobycia</h2><p class="muted center">Po wielkim celu Karmela czekają kolejne fajne rzeczy!</p><div class="goal-dreams"><div class="dream-card"><span class="dream-icon">💻</span><h3>Wymarzony laptop</h3><p>Do grania, nauki i tworzenia!</p></div><div class="dream-card"><span class="dream-icon">🖨️</span><h3>Drukarka 3D</h3><p>Do drukowania własnych pomysłów i modeli!</p></div></div></div></section>
 <section id="charts" class="page"><div class="panel center"><h2>🌌 Nocne wykresy Karmela</h2><div class="nightdog"><div><div class="stars">✦　✧　✦　✧</div><div class="dog"><div class="tail"></div><div class="ear l"></div><div class="ear r"></div><div class="body"></div><div class="chest"></div><div class="leg a"></div><div class="leg b"></div><div class="paw a"></div><div class="paw b"></div><div class="head"><div class="eye l"></div><div class="eye r"></div><div class="snout"></div><div class="nose"></div><div class="smile"></div></div></div></div></div><p class="muted">Karmel patrzy na gwiazdy… a tam widać każdą wpłatę i wydatek.</p><div class="chart"><svg id="chartSvg" viewBox="0 0 700 220" preserveAspectRatio="none"><polyline id="chartLine" points="0,200 700,200" fill="none" stroke="#65c7ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="grid"><div class="stat">Wpłaty<b id="chartIncome">0,00 zł</b></div><div class="stat">Wydatki<b id="chartExpense">0,00 zł</b></div></div><button class="action red" onclick="clearCharts()">🧽 Wyczyść wykresy</button></div></section>
@@ -157,8 +188,36 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
 </div>
 </section>
 
+
+<section id="bowl" class="page">
+ <div class="panel center">
+  <div class="bowl-hero">
+   <div style="font-size:48px">🥣</div><h1>WIELKA MISKA DLA KARMELA</h1>
+   <p>Wielka miska jest zamknięta na kłódkę. Znajdź 10 rzadkich odłamków klucza, które mogą pojawić się gdziekolwiek na stronie!</p>
+   <div class="big-bowl" id="bigBowl" onclick="clickBowlLock()"><div class="bowl-fill" id="bowlFill"></div><div class="bowl-lock" id="bowlLock">🔒</div></div>
+   <div class="bowl-progress" id="shardProgress">Odłamki klucza: 0 / 10</div>
+  </div>
+ </div>
+ <div class="panel center" id="keyMachinePanel">
+  <h2>⚙️ MASZYNA DO KLUCZA</h2><p class="muted">Gdy zbierzesz wszystkie 10 odłamków, kliknij przycisk. Metalowe tłoki zacisną się i złożą klucz!</p>
+  <div class="bowl-machine" id="bowlMachine"><div class="machine-top"></div><div class="machine-pistons"><i></i><i></i><i></i><i></i><i></i></div><div class="machine-key" id="machineKey">🗝️</div></div>
+  <button class="action" id="compressKeyBtn" onclick="compressBowlKey()" disabled>⚙️ KOMPRESKLUJ</button>
+  <p class="muted" id="machineStatus">Maszyna czeka na 10 odłamków.</p>
+ </div>
+ <div class="panel center" id="foodMissionPanel">
+  <h2>🥫 ZAPASY KARMY</h2><p id="foodMissionText">Najpierw otwórz kłódkę. Potem znajdź 5 małych puszek z karmą, ukrytych na stronie.</p>
+  <div class="bowl-progress" id="foodProgress">Puszki karmy: 0 / 5</div>
+ </div>
+ <div class="panel center" id="feedingPanel" style="display:none">
+  <h2>🐶 CZAS KARMIENIA!</h2><p>Karmel już czeka! Klikaj rurę, żeby wysypywać z niej karmę do miski.</p>
+  <div class="bowl-pipe" id="bowlPipe" onclick="dispenseFood()" title="Kliknij, aby wysypać karmę"></div>
+  <p class="bowl-progress" id="feedProgress">Napełnienie miski: 0 / 100</p>
+  <div class="bar"><i id="feedBar"></i></div>
+ </div>
+</section>
+
 <section id="music" class="page"><div class="panel center"><p class="muted" style="letter-spacing:3px;font-weight:800">KARMEL RECORDS • PLAYER</p><h2>🎶 Gramofon Karmela</h2><p class="muted">Wybierz piosenkę, połóż igłę i posłuchaj autorskich melodii Karmelka.</p><div class="record-wrap"><div class="record" id="vinyl"><div class="record-center">🐾</div></div></div><div id="nowPlaying" style="font-weight:850;color:#345b91">Teraz: cisza przed koncertem</div><p id="musicLyric">Wybierz utwór z playlisty.</p><div class="actions"><button class="action" id="musicPlay" onclick="toggleMusic()">▶ Odtwórz</button><button class="action dark" onclick="stopMusic()">■ Stop</button><button class="action dark" onclick="speakCurrentLyric()">🎤 Powiedz tekst</button></div><p class="muted" style="font-size:13px">Głos jest syntezowany przez przeglądarkę. Kliknij „Powiedz tekst”, jeśli przeglądarka nie uruchomi go automatycznie.</p></div><div class="panel"><h3>💿 Kolekcja płyt</h3><div class="music-playlist" id="playlist"></div></div><div class="panel"><h3>🎧 Małe studio Karmela</h3><p class="muted">Muzyka jest autorska i generowana na stronie — nie musisz nic pobierać.</p><div class="grid"><div class="stat">🎼 Utwory<b>4 piosenki</b></div><div class="stat">🎤 Wokal<b>Polski głos</b></div><div class="stat">🐶 Wykonawca<b>Karmel</b></div></div></div></section>
-<section id="portalroom" class="page"><div class="panel center"><h1>🌀 Portal Karmela</h1><p class="muted">To miejsce na razie jest tajemnicą…</p><div class="empty-space"></div><button class="action" onclick="closePortalRoom()">⬅ Wróć</button></div></section><div class="footer">Karmel • Psia skarbonka pełna przygód 🐾</div></main><div class="celebrate" id="celebration" onclick="hideCelebration()"><div class="confetti-rain"></div><div class="celebrate-card"><h2>🎉 Brawo!</h2><p>Karmel jest coraz szczęśliwszy!</p><button class="action" onclick="event.stopPropagation();hideCelebration()">Dalej 🐾</button></div></div><button class="sound" id="sound">♫ Włącz nową muzykę</button>
+<section id="portalroom" class="page"><div class="panel center"><h1>🌀 Portal Karmela</h1><p class="muted">To miejsce na razie jest tajemnicą…</p><div class="empty-space"></div><button class="action" onclick="closePortalRoom()">⬅ Wróć</button></div></section><div class="footer">Karmel • Psia skarbonka pełna przygód 🐾</div></main><div class="bowl-win" id="bowlWin" onclick="closeBowlWin()"><div class="bowl-win-card"><div class="bowl-dog-happy">🐶</div><h1>🎉 GRATULACJE!!</h1><h2>KARMEL JEST SYTY NA CAŁY DZIEŃ!!</h2><p>Wielka miska jest pełna, a Karmel jest przeszczęśliwy! 🥰</p><button class="action" onclick="event.stopPropagation();closeBowlWin()">Hurra! 🐾</button></div></div><div class="celebrate" id="celebration" onclick="hideCelebration()"><div class="confetti-rain"></div><div class="celebrate-card"><h2>🎉 Brawo!</h2><p>Karmel jest coraz szczęśliwszy!</p><button class="action" onclick="event.stopPropagation();hideCelebration()">Dalej 🐾</button></div></div><button class="sound" id="sound">♫ Włącz nową muzykę</button>
 <script>
 const TARGET=1000;let balance=Number(localStorage.getItem('karmelBalance')||0);let history=JSON.parse(localStorage.getItem('karmelHistory')||'[]');let chart=JSON.parse(localStorage.getItem('karmelChart')||'[]');let missions=Number(localStorage.getItem('karmelMissions')||0);let audio=null,osc=null,gain=null,musicBass=null,bassGain=null,musicOn=false,musicTimer=null,musicStep=0,guitarOsc=null,guitarGain=null,musicNotes=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46];
 const money=n=>Number(n).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -315,6 +374,67 @@ function adminClearBones(){
 function showPortalCelebration(i){
  const overlay=document.getElementById('celebration');let h=overlay.querySelector('h2'),p=overlay.querySelector('p');const levels=[0,90,160,260,420];const count=levels[i]||90;const titles=['','🌊 OCEAN ODKRYTY!','🌿 LEŚNY WYMIAR ODKRYTY!','🔥 KRAINA OGNIA ODKRYTA!','✨ LEGENDARNY WYMIAR ODKRYTY!'];h.textContent=titles[i]||'🌟 PORTAL ODKRYTY!';h.style.fontSize='clamp(25px,6vw,42px)';p.textContent='Udało się otworzyć: '+portalNames[i]+'! '+(i===4?'To legendarne osiągnięcie!':'Karmel odkrywa nowy wymiar!');let rain=overlay.querySelector('.confetti-rain');rain.innerHTML='';for(let n=0;n<count;n++){let piece=document.createElement('i');piece.className='confetti-piece';piece.style.left=(Math.random()*100)+'%';piece.style.background='hsl('+Math.floor(Math.random()*360)+' 95% 62%)';piece.style.setProperty('--fall',(2+Math.random()*2.5)+'s');piece.style.setProperty('--delay',(Math.random()*.8)+'s');piece.style.setProperty('--drift',(Math.random()*260-130)+'px');rain.appendChild(piece)}overlay.classList.remove('show');void overlay.offsetWidth;overlay.classList.add('show')}
 
+
+/* Misja Wielkiej Miski — zapisuje postęp na tym urządzeniu */
+const bowlSaveKey='karmelBigBowlMission';
+let bowlState=(()=>{try{return Object.assign({shards:0,keyMade:false,unlocked:false,cans:0,foodClicks:0,fed:false},JSON.parse(localStorage.getItem(bowlSaveKey)||'{}'))}catch(e){return {shards:0,keyMade:false,unlocked:false,cans:0,foodClicks:0,fed:false}}})();
+let bowlCollectible=null,bowlCollectibleTimer=null,bowlLastFind=0;
+function saveBowl(){localStorage.setItem(bowlSaveKey,JSON.stringify(bowlState));refreshBowlUI()}
+function refreshBowlUI(){
+ const shard=document.getElementById('shardProgress'),btn=document.getElementById('compressKeyBtn'),status=document.getElementById('machineStatus'),key=document.getElementById('machineKey'),lock=document.getElementById('bowlLock'),food=document.getElementById('foodProgress'),foodText=document.getElementById('foodMissionText'),feed=document.getElementById('feedingPanel'),fill=document.getElementById('bowlFill'),prog=document.getElementById('feedProgress'),bar=document.getElementById('feedBar');
+ if(!shard)return;
+ shard.textContent='Odłamki klucza: '+bowlState.shards+' / 10';
+ btn.disabled=bowlState.shards<10||bowlState.keyMade;
+ status.textContent=bowlState.keyMade?'Klucz został wykuty! Kliknij kłódkę na misce.':bowlState.shards>=10?'Wszystkie odłamki są gotowe — uruchom prasę!':'Maszyna czeka na 10 odłamków.';
+ key.classList.toggle('show',bowlState.keyMade);
+ lock.textContent=bowlState.unlocked?'🥣':bowlState.keyMade?'🔓':'🔒';
+ lock.classList.toggle('cracked',bowlState.unlocked);
+ food.textContent='Puszki karmy: '+bowlState.cans+' / 5';
+ foodText.textContent=bowlState.unlocked?(bowlState.cans>=5?'Wszystkie puszki zebrane! Karmel może już jeść.':'Szukaj małych puszek z karmą w różnych miejscach strony!'):'Najpierw otwórz kłódkę. Potem znajdź 5 małych puszek z karmą, ukrytych na stronie.';
+ feed.style.display=bowlState.unlocked&&bowlState.cans>=5&&!bowlState.fed?'block':'none';
+ const n=Math.min(100,bowlState.foodClicks);fill.style.height=n+'%';prog.textContent='Napełnienie miski: '+n+' / 100';bar.style.width=n+'%';
+}
+function clickBowlLock(){
+ if(!bowlState.keyMade){alert('Kłódka jest zamknięta! Najpierw znajdź 10 odłamków i złóż klucz w maszynie.');return}
+ if(bowlState.unlocked){alert('Miska jest już otwarta! Teraz znajdź 5 puszek karmy.');return}
+ const l=document.getElementById('bowlLock');l.textContent='💥';l.classList.add('cracked');
+ setTimeout(()=>{bowlState.unlocked=true;saveBowl();const panel=document.getElementById('foodMissionPanel');panel.scrollIntoView({behavior:'smooth',block:'center'});},650);
+}
+function compressBowlKey(){
+ if(bowlState.shards<10||bowlState.keyMade)return;
+ const machine=document.getElementById('bowlMachine');machine.classList.add('compressing');
+ document.getElementById('machineStatus').textContent='TŁOKI PRACUJĄ... KLUCZ SIĘ FORMUJE!';
+ setTimeout(()=>{machine.classList.remove('compressing');bowlState.keyMade=true;saveBowl();document.getElementById('machineStatus').textContent='KLANG! Gotowy klucz wysunął się z maszyny!';document.getElementById('machineKey').classList.add('show');},2450);
+}
+function removeBowlCollectible(){if(bowlCollectible){bowlCollectible.remove();bowlCollectible=null}if(bowlCollectibleTimer)clearTimeout(bowlCollectibleTimer);bowlCollectibleTimer=null}
+function spawnBowlCollectible(type){
+ removeBowlCollectible();const el=document.createElement('button');el.type='button';el.className='bowl-collectible'+(type==='food'?' food':'');el.textContent=type==='food'?'🥫':'🔑';el.title=type==='food'?'Ukryta puszka karmy!':'Odłamek klucza!';
+ const pad=65;el.style.left=(pad+Math.random()*Math.max(1,innerWidth-pad*2-44))+'px';el.style.top=(95+Math.random()*Math.max(1,innerHeight-190))+'px';
+ el.addEventListener('click',ev=>{ev.stopPropagation();if(type==='shard'){bowlState.shards=Math.min(10,bowlState.shards+1);saveBowl();}else{bowlState.cans=Math.min(5,bowlState.cans+1);saveBowl();}removeBowlCollectible();});
+ document.body.appendChild(el);bowlCollectible=el;bowlCollectibleTimer=setTimeout(removeBowlCollectible,18000);
+}
+document.addEventListener('click',ev=>{
+ if(ev.target.closest('#bowlMission')||ev.target.closest('.bowl-collectible')||ev.target.closest('#bowl'))return;
+ if(bowlCollectible)return;
+ const now=Date.now();if(now-bowlLastFind<1800)return;
+ if(bowlState.shards<10){if(Math.random()<0.045){bowlLastFind=now;spawnBowlCollectible('shard')}}
+ else if(bowlState.unlocked&&bowlState.cans<5){if(Math.random()<0.055){bowlLastFind=now;spawnBowlCollectible('food')}}
+});
+function dispenseFood(){
+ if(bowlState.fed||bowlState.cans<5)return;
+ bowlState.foodClicks=Math.min(100,bowlState.foodClicks+1);
+ const pipe=document.getElementById('bowlPipe');pipe.classList.remove('shake');void pipe.offsetWidth;pipe.classList.add('shake');
+ const bit=document.createElement('span');bit.className='bowl-food-fall';bit.textContent=['🥩','🦴','🍖','🥣'][Math.floor(Math.random()*4)];pipe.appendChild(bit);setTimeout(()=>bit.remove(),750);
+ saveBowl();
+ if(bowlState.foodClicks>=100){bowlState.fed=true;saveBowl();showBowlWin()}
+}
+function showBowlWin(){
+ const win=document.getElementById('bowlWin');if(!win)return;win.classList.add('show');
+ for(let i=0;i<65;i++){const c=document.createElement('i');c.className='confetti-piece';c.style.left=Math.random()*100+'%';c.style.background='hsl('+Math.floor(Math.random()*360)+' 95% 62%)';c.style.setProperty('--fall',(2+Math.random()*2)+'s');c.style.setProperty('--drift',(Math.random()*260-130)+'px');win.appendChild(c)}
+}
+function closeBowlWin(){document.getElementById('bowlWin').classList.remove('show')}
+
+refreshBowlUI();
 refreshBoneUI();
 update();
 </script></body></html>
