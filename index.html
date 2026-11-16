@@ -94,7 +94,7 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
 .portal-room-panel{position:relative;min-height:620px}
 .portal-topline{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .bone-counter{position:sticky;top:12px;z-index:3;padding:10px 16px;border:1px solid #fff5;border-radius:15px;background:#080b16eF;box-shadow:0 5px 22px #0007;color:#ffe18a;font-size:20px}
-.bone-stage{height:230px;display:grid;place-items:center;position:relative}
+.bone-stage{height:230px;display:grid;place-items:center;position:relative}.special-bone{position:absolute;right:calc(50% - 175px);top:18px;display:none;border:2px solid #fff;border-radius:18px;padding:10px 13px;font-weight:950;color:#251500;cursor:pointer;box-shadow:0 0 24px currentColor;animation:specialPulse .8s ease-in-out infinite alternate}.special-bone.gold-bone{background:linear-gradient(135deg,#fff2a8,#ffb300);color:#5b3500}.special-bone.blue-bone{background:linear-gradient(135deg,#d6f5ff,#168de8);color:#062d57}@keyframes specialPulse{to{transform:scale(1.08);filter:brightness(1.2)}}.boost-status{min-height:22px;font-weight:850;color:var(--gold);text-shadow:0 0 12px currentColor}
 .bone-button{width:145px;height:145px;border:2px solid #fff9;border-radius:50%;font-size:76px;cursor:pointer;background:radial-gradient(circle at 35% 25%,#fff9d7,#e5a94f 55%,#8e4d1d);box-shadow:0 0 0 10px #ffffff12,0 0 35px #ffc66d88,inset 0 -12px 20px #75401b66;transition:transform .12s,filter .2s}
 .bone-button:hover{transform:scale(1.07) rotate(-5deg)}.bone-button:active{transform:scale(.91) rotate(8deg)}.bone-button:disabled{cursor:wait;filter:grayscale(.4);transform:scale(.94)}
 .bone-pop{position:absolute;left:calc(50% + 68px);top:48px;opacity:0;transform:translate(0,0) scale(1);pointer-events:none;color:#aaffb7;font-size:26px;font-weight:1000;text-shadow:0 3px 8px #000;white-space:nowrap}
@@ -117,7 +117,7 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
 .inventory-slot.empty:after{content:"+";color:#ffffff55;font-size:36px;font-weight:300}
 .inventory-slot small{font-size:10px;position:absolute;bottom:5px}
 .inventory-preview{text-align:center;font-size:18px;margin:12px}
-.inventory-preview .dog-emoji{font-size:75px;display:block}
+ .inventory-preview .dog-emoji{font-size:75px;display:block}body.portal-ocean{--bg:#071c38;--panel:#0d3155;--panel2:#14527a;--line:#3d9fc6;--gold:#a8eeff;--accent:#2b9fca;--glow:#75e3ff;background:radial-gradient(ellipse at 50% 0,#167eaa,#071c38 68%,#030b18)}body.portal-forest{--bg:#102719;--panel:#183b29;--panel2:#24543a;--line:#57976b;--gold:#c6f3a2;--accent:#54a85d;--glow:#9ce68c;background:radial-gradient(ellipse at 50% 0,#397849,#102719 68%,#06150c)}body.portal-fire{--bg:#35120c;--panel:#5b2014;--panel2:#84331c;--line:#d56a32;--gold:#ffe09a;--accent:#ff642e;--glow:#ff9a46;background:radial-gradient(ellipse at 50% 0,#b6401c,#35120c 68%,#150704)}body.portal-legend{--bg:#1a1035;--panel:#30205a;--panel2:#4b3180;--line:#a58ae8;--gold:#f4d6ff;--accent:#b18cff;--glow:#e2b8ff;background:radial-gradient(ellipse at 50% 0,#8154bd,#1a1035 68%,#080512)}
 @media(max-width:560px){.portal-card{min-height:175px}.bone-button{width:125px;height:125px;font-size:65px}.portal-room-panel{padding:13px}.inventory-slots{grid-template-columns:repeat(3,minmax(60px,1fr))}}
 
 </style></head>
@@ -131,7 +131,7 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
   <h2>🌀 Portal Karmela</h2>
   <p class="muted">Wejdź do tajemniczego portalu, aby zobaczyć dostępne wymiary.</p>
   <div id="portalGate" class="portal-gate"><button class="portal action" onclick="enterMainPortal()">🌀 WEJDŹ DO PORTALU</button></div>
-  <div id="portalChoices" style="display:none"><div class="portal-topline"><button class="action dark" onclick="backToPortalGate()">← Powrót do portalu</button><h3>Wybierz dodatkowy wymiar</h3></div>
+  <div id="portalChoices" style="display:none"><div class="portal-topline"><button class="action dark" onclick="backToPortalGate()">← Powrót do portalu</button><h3>Wybierz dodatkowy wymiar</h3><button class="action red" onclick="clearPortalProgress()">🧹 Wyczyść wymiary</button></div>
   <div class="portal-grid" id="portalGrid">
     <button class="portal-card p1" onclick="choosePortal(1)"><span class="portal-orb">🌊</span><b>Ocean Kości</b><small>🦴 1 000 kości</small><span class="portal-status" id="portalLock1">🔒 ZABLOKOWANY</span></button>
     <button class="portal-card p2" onclick="choosePortal(2)"><span class="portal-orb">🌿</span><b>Leśny Wymiar</b><small>🦴 10 000 kości</small><span class="portal-status" id="portalLock2">🔒 ZABLOKOWANY</span></button>
@@ -140,11 +140,11 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
   </div></div>
 </div>
 <div class="panel center portal-room-panel" id="portalGame" style="display:none">
-  <div class="portal-topline"><button class="action dark" onclick="leavePortal()">← Powrót do portalu</button><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
+  <div class="portal-topline"><button class="action dark" onclick="leavePortal()">← Powrót do portalu</button><div class="bone-counter">🦴 <b id="boneCount">0</b></div><button id="specialBoneButton" class="special-bone" onclick="claimSpecialBone()" style="display:none">✨ SPECJALNA KOŚĆ</button></div>
   <h2 id="activePortalTitle">Portal Początku</h2>
-  <p class="muted"><b>KLIKNIJ KOŚĆ = +1 KOŚĆ!</b><br>Klikaj, zdobywaj kości i rozwijaj kolekcję Karmela.</p>
+  <p class="muted"><b>KLIKNIJ KOŚĆ I ZBIERAJ!</b><br>Każdy wymiar daje coraz większy mnożnik. W tym wymiarze: <b id="dimensionBonus">x1</b>.</p>
   <div class="bone-stage"><button id="boneButton" class="bone-button" onclick="collectBone()" aria-label="Zbierz kość">🦴</button><span id="bonePop" class="bone-pop">+1</span></div>
-  <p id="boneCooldown" class="cooldown-label">Gotowe do kliknięcia!</p>
+  <p id="boneCooldown" class="cooldown-label">Gotowe do kliknięcia!</p><p id="boostStatus" class="boost-status"></p>
   <div class="cooldown-track"><i id="cooldownFill"></i></div>
   <div class="game-nav" style="display:flex!important;visibility:visible!important;opacity:1!important;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px;margin:22px 0">
     <button class="action dark" onclick="openGameView('upgrades')">⬆️ ULEPSZENIA</button>
@@ -221,36 +221,56 @@ let bones=Math.max(0,Number(localStorage.getItem('karmelBones')||0));
 let unlockedPortals=JSON.parse(localStorage.getItem('karmelUnlockedPortals')||'[true,false,false,false,false]');
 let upgrades=JSON.parse(localStorage.getItem('karmelBoneUpgrades')||'{"power":0,"speed":0}');
 let ownedItems=JSON.parse(localStorage.getItem('karmelOwnedItems')||'[]');
-['shades','chain','watch','hat','shoes','scarf','bow'].forEach(id=>{if(!ownedItems.includes(id))ownedItems.push(id)});
+ownedItems=ownedItems.filter(id=>shopItems.some(item=>item.id===id&&!item.basic));
+if(!ownedItems.includes('scarf'))ownedItems.unshift('scarf');
 let equippedItems=JSON.parse(localStorage.getItem('karmelEquippedItems')||'{}');
-let activePortal=0,boneReady=true,boneTimer=null,gameView='home';
-function saveBoneGame(){localStorage.setItem('karmelBones',String(bones));localStorage.setItem('karmelUnlockedPortals',JSON.stringify(unlockedPortals));localStorage.setItem('karmelBoneUpgrades',JSON.stringify(upgrades));localStorage.setItem('karmelOwnedItems',JSON.stringify(ownedItems));localStorage.setItem('karmelEquippedItems',JSON.stringify(equippedItems))}
+Object.keys(equippedItems).forEach(slot=>{if(!ownedItems.includes(equippedItems[slot]))delete equippedItems[slot]});
+if(!Object.keys(equippedItems).length)equippedItems['0']='scarf';
+const boneShopItems=[
+ {id:'gold',name:'Złota kość',icon:'🟡',cost:2500,desc:'+5% kości za kliknięcie.',yield:0.05,cooldown:0},
+ {id:'iron',name:'Żelazna kość',icon:'⚙️',cost:6000,desc:'Odnowienie przycisku szybsze o 5%.',yield:0,cooldown:0.95},
+ {id:'galactic',name:'Galaktyczna kość',icon:'🌌',cost:18000,desc:'+8% kości za kliknięcie.',yield:0.08,cooldown:0},
+ {id:'demon',name:'Demonowa kość',icon:'😈',cost:45000,desc:'+12% kości za kliknięcie.',yield:0.12,cooldown:0},
+ {id:'skull',name:'Czaszkowa kość',icon:'💀',cost:90000,desc:'Odnowienie przycisku szybsze o 10%.',yield:0,cooldown:0.9}
+];
+let ownedBoneTypes=JSON.parse(localStorage.getItem('karmelOwnedBoneTypes')||'[]');
+let activePortal=0,boneReady=true,boneTimer=null,gameView='home',specialBoneType=null,specialBoneTimer=null,boostTimer=null,boneMultiplier=1;
+const portalMultipliers=[1,1.2,1.4,1.6,2];
+function saveBoneGame(){localStorage.setItem('karmelBones',String(bones));localStorage.setItem('karmelUnlockedPortals',JSON.stringify(unlockedPortals));localStorage.setItem('karmelBoneUpgrades',JSON.stringify(upgrades));localStorage.setItem('karmelOwnedItems',JSON.stringify(ownedItems));localStorage.setItem('karmelEquippedItems',JSON.stringify(equippedItems));localStorage.setItem('karmelOwnedBoneTypes',JSON.stringify(ownedBoneTypes))}
+function relicYieldMultiplier(){return 1+boneShopItems.filter(x=>ownedBoneTypes.includes(x.id)).reduce((sum,x)=>sum+x.yield,0)}
+function relicCooldownMultiplier(){return boneShopItems.filter(x=>ownedBoneTypes.includes(x.id)&&x.cooldown>0).reduce((mult,x)=>mult*x.cooldown,1)}
+function setPortalTheme(i){document.body.classList.remove('portal-ocean','portal-forest','portal-fire','portal-legend');if(i===1)document.body.classList.add('portal-ocean');if(i===2)document.body.classList.add('portal-forest');if(i===3)document.body.classList.add('portal-fire');if(i===4)document.body.classList.add('portal-legend')}
+function effectiveCooldown(){return Math.max(80,Math.round(cooldownMs()*relicCooldownMultiplier()))}
 function boneFormat(n){return Math.floor(n).toLocaleString('pl-PL')}
 function clickPower(){return [1,2,5,10,50,100][Math.min(5,upgrades.power||0)]}
 function cooldownMs(){return [1000,800,500,250,100,50][Math.min(5,upgrades.speed||0)]}
 function refreshBoneUI(){
- const count=document.getElementById('boneCount');if(count)count.textContent=boneFormat(bones);
+ const count=document.getElementById('boneCount');if(count)count.textContent=boneFormat(bones);const bonus=document.getElementById('dimensionBonus');if(bonus)bonus.textContent='x'+portalMultipliers[activePortal].toFixed(1).replace('.0','');
  boneCosts.forEach((cost,i)=>{let card=document.querySelector('.portal-card.p'+i);if(card){card.classList.toggle('locked-portal',!unlockedPortals[i]);let status=card.querySelector('.portal-status');if(status)status.textContent=unlockedPortals[i]?'✓ ODBLOKOWANY':'🔒 ZABLOKOWANY'}});
 }
-function showPortalChoices(){document.getElementById('portalGame').style.display='none';document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='block'}
-function enterMainPortal(){activePortal=0;document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent='Portal Karmela';document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI()}
-function backToPortalGate(){document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='none';document.getElementById('portalGate').style.display='block';refreshBoneUI()}
+function showPortalChoices(){document.getElementById('portalGame').style.display='none';document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='block';setPortalTheme(0);refreshBoneUI()}
+function enterMainPortal(){activePortal=0;document.getElementById('portalGate').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent='Portal Karmela';document.getElementById('gameSubView').style.display='none';gameView='home';setPortalTheme(0);refreshBoneUI()}
+function backToPortalGate(){document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='none';document.getElementById('portalGate').style.display='block';setPortalTheme(0);refreshBoneUI()}
+function clearPortalProgress(){if(!confirm('Wyczyścić odblokowane wymiary? Liczba kości, sklep i ulepszenia pozostaną bez zmian.'))return;if(!confirm('Ostatnie potwierdzenie — dodatkowe wymiary zostaną zablokowane ponownie.'))return;unlockedPortals=[true,false,false,false,false];activePortal=0;saveBoneGame();setPortalTheme(0);refreshBoneUI();alert('Postęp wymiarów został wyczyszczony.')}
 function choosePortal(i){
- if(unlockedPortals[i]){activePortal=i;document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
+ if(unlockedPortals[i]){activePortal=i;document.getElementById('portalChoices').style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';setPortalTheme(i);refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
  const cost=boneCosts[i];if(!confirm('Czy chcesz kupić portal „'+portalNames[i]+'” za '+boneFormat(cost)+' kości?'))return;
  if(bones<cost){alert('Nie masz tylu kości! Potrzebujesz jeszcze '+boneFormat(cost-bones)+' 🦴.');return}
  bones-=cost;unlockedPortals[i]=true;saveBoneGame();refreshBoneUI();showPortalCelebration(i);
 }
-function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGate').style.display='block';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
+function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;const b=document.getElementById('boneButton');if(b)b.disabled=false;document.getElementById('portalGame').style.display='none';document.getElementById('portalChoices').style.display='none';document.getElementById('portalGate').style.display='block';document.getElementById('gameSubView').style.display='none';setPortalTheme(0);refreshBoneUI()}
 function exitPortalToHome(){leavePortal();showPage('home')}
 function collectBone(){
- if(!boneReady)return;boneReady=false;bones+=clickPower();saveBoneGame();refreshBoneUI();
- const pop=document.getElementById('bonePop');pop.textContent='+'+clickPower();pop.classList.remove('show');void pop.offsetWidth;pop.classList.add('show');
+ if(!boneReady)return;boneReady=false;const gained=Math.max(1,Math.round(clickPower()*portalMultipliers[activePortal]*relicYieldMultiplier()*boneMultiplier));bones+=gained;saveBoneGame();refreshBoneUI();
+ const pop=document.getElementById('bonePop');pop.textContent='+'+boneFormat(gained);pop.classList.remove('show');void pop.offsetWidth;pop.classList.add('show');
  const button=document.getElementById('boneButton');button.disabled=true;
- const fill=document.getElementById('cooldownFill');fill.classList.remove('ready');fill.style.animationDuration=cooldownMs()+'ms';void fill.offsetWidth;fill.classList.add('ready');
+ const fill=document.getElementById('cooldownFill');fill.classList.remove('ready');fill.style.animationDuration=effectiveCooldown()+'ms';void fill.offsetWidth;fill.classList.add('ready');
  document.getElementById('boneCooldown').textContent='Kość się odnawia…';
- boneTimer=setTimeout(()=>{boneReady=true;button.disabled=false;fill.classList.remove('ready');document.getElementById('boneCooldown').textContent='Gotowe do kliknięcia!';boneTimer=null},cooldownMs());
+ boneTimer=setTimeout(()=>{boneReady=true;button.disabled=false;fill.classList.remove('ready');document.getElementById('boneCooldown').textContent='Gotowe do kliknięcia!';boneTimer=null},effectiveCooldown());
+ if(!specialBoneType){const roll=Math.random();if(roll<0.01)spawnSpecialBone('blue');else if(roll<0.09)spawnSpecialBone('gold')}
 }
+function spawnSpecialBone(type){specialBoneType=type;const b=document.getElementById('specialBoneButton');if(!b)return;b.className='special-bone '+(type==='blue'?'blue-bone':'gold-bone');b.textContent=type==='blue'?'💎 NIEBIESKA KOŚĆ x5':'🌟 ZŁOTA KOŚĆ x2';b.style.display='inline-block';if(specialBoneTimer)clearTimeout(specialBoneTimer);specialBoneTimer=setTimeout(()=>{specialBoneType=null;b.style.display='none';specialBoneTimer=null},15000)}
+function claimSpecialBone(){if(!specialBoneType)return;const type=specialBoneType;specialBoneType=null;const b=document.getElementById('specialBoneButton');b.style.display='none';if(specialBoneTimer)clearTimeout(specialBoneTimer);if(boostTimer)clearTimeout(boostTimer);boneMultiplier=type==='blue'?5:2;const status=document.getElementById('boostStatus');status.textContent=(type==='blue'?'💎 NIEBIESKA KOŚĆ x5':'🌟 ZŁOTA KOŚĆ x2')+' — bonus aktywny przez 10 sekund!';boostTimer=setTimeout(()=>{boneMultiplier=1;status.textContent='';boostTimer=null},10000)}
 function openGameView(view){
  gameView=view;const el=document.getElementById('gameSubView');el.style.display='block';
  if(view==='upgrades')renderUpgrades(el);if(view==='shop')renderShop(el);if(view==='inventory')renderInventory(el);
@@ -258,23 +278,27 @@ function openGameView(view){
 }
 function renderUpgrades(el){
  const rows=upgradeDefs.map(u=>{let level=upgrades[u.id]||0,done=level>=u.max,cost=u.costs[level];let benefit=u.id==='power'?'+'+u.values[level]+' kości za kliknięcie':'odnowienie: '+(u.values[level]/1000)+' s';return '<div class="game-item"><span class="item-icon">'+u.icon+'</span><h4>'+u.name+'</h4><p>'+u.desc+'<br>Poziom: '+level+'/'+u.max+(done?' • MAX':'')+'<br>Następny efekt: '+(done?'Maksymalny poziom':benefit)+'</p><button class="action" '+(done?'disabled':'')+' onclick="buyUpgrade(\''+u.id+'\')">'+(done?'✓ MAX':'Ulepsz • 🦴 '+boneFormat(cost))+'</button></div>'}).join('');
- el.innerHTML='<h3>⬆️ Warsztat ulepszeń</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><div class="game-items">'+rows+'</div>';
+ el.innerHTML='<h3>⬆️ Warsztat ulepszeń</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><div class="game-items">'+rows+'</div><div class="center" style="margin-top:16px"><button class="action red" onclick="clearUpgrades()">🧹 Wyczyść ulepszenia</button></div>';
 }
+function clearUpgrades(){if(!confirm('Wyczyścić wszystkie ulepszenia? Poziomy mocy i szybkości wrócą do zera.'))return;if(!confirm('Na pewno? Tego nie można cofnąć.'))return;upgrades={power:0,speed:0};saveBoneGame();refreshBoneUI();renderUpgrades(document.getElementById('gameSubView'));alert('Ulepszenia zostały wyczyszczone.')}
 function buyUpgrade(id){
  const u=upgradeDefs.find(x=>x.id===id);if(!u)return;let level=upgrades[id]||0;if(level>=u.max){alert('To ulepszenie ma już maksymalny poziom!');return}let cost=u.costs[level];if(bones<cost){alert('Nie masz tylu kości!');return}if(!confirm('Kupić „'+u.name+'” za '+boneFormat(cost)+' kości?'))return;bones-=cost;upgrades[id]=level+1;saveBoneGame();refreshBoneUI();renderUpgrades(document.getElementById('gameSubView'));
 }
 function renderShop(el){
  const rows=shopItems.filter(item=>!item.basic).map(item=>{let owned=ownedItems.includes(item.id);return '<div class="game-item"><span class="item-icon">'+item.icon+'</span><h4>'+item.name+'</h4><p>'+item.desc+'<br>Cena: 🦴 '+boneFormat(item.cost)+'</p><button class="action" '+(owned?'disabled':'')+' onclick="buyShopItem(\''+item.id+'\')">'+(owned?'✓ Kupiono':'Kup • 🦴 '+boneFormat(item.cost))+'</button></div>'}).join('');
- el.innerHTML='<h3>🛍️ Sklep Karmela</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><div class="game-items">'+rows+'</div>';
+ const boneRows=boneShopItems.map(item=>{let owned=ownedBoneTypes.includes(item.id);return '<div class="game-item"><span class="item-icon">'+item.icon+'</span><h4>'+item.name+'</h4><p>'+item.desc+'<br>Cena: 🦴 '+boneFormat(item.cost)+'</p><button class="action" '+(owned?'disabled':'onclick="buyBoneType(\''+item.id+'\')"')+'>'+(owned?'✓ Kupiono i aktywne':'Kup • 🦴 '+boneFormat(item.cost))+'</button></div>'}).join('');
+ el.innerHTML='<h3>🛍️ Sklep Karmela</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><h4>🐾 Dodatki</h4><div class="game-items">'+rows+'</div><h4 class="center" style="margin-top:22px">🦴 Rzadkie rodzaje kości — bonusy pasywne</h4><div class="game-items">'+boneRows+'</div>';
 }
+function buyBoneType(id){const item=boneShopItems.find(x=>x.id===id);if(!item||ownedBoneTypes.includes(id))return;if(bones<item.cost){alert('Nie masz tylu kości! Brakuje '+boneFormat(item.cost-bones)+'.');return}if(!confirm('Kupić '+item.name+'? Jej bonus będzie aktywny na stałe.'))return;bones-=item.cost;ownedBoneTypes.push(id);saveBoneGame();refreshBoneUI();renderShop(document.getElementById('gameSubView'))}
 function buyShopItem(id){
  const item=shopItems.find(x=>x.id===id);if(!item||ownedItems.includes(id))return;if(bones<item.cost){alert('Nie masz tylu kości! Brakuje '+boneFormat(item.cost-bones)+'.');return}if(!confirm('Czy chcesz kupić „'+item.name+'” za '+boneFormat(item.cost)+' kości?'))return;bones-=item.cost;ownedItems.push(id);saveBoneGame();refreshBoneUI();renderShop(document.getElementById('gameSubView'));
 }
 function renderInventory(el){
  const slots=Array.from({length:8},(_,i)=>{let itemId=equippedItems[String(i)],item=shopItems.find(x=>x.id===itemId);return '<button class="inventory-slot '+(item?'':'empty')+'" onclick="inventorySlot('+i+')">'+(item?item.icon:'')+(item?'<small>'+item.name+'</small>':'')+'</button>'}).join('');
  const equipped=Object.values(equippedItems).map(v=>shopItems.find(i=>i.id===v)).filter(Boolean).map(x=>x.icon+' '+x.name).join(' • ')||'Brak założonych przedmiotów';
- el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Kliknij dowolny slot, aby wybrać przedmiot z kolekcji. Puste sloty mają znak +.</p><div class="inventory-slots">'+slots+'</div><div id="inventoryPicker"></div>';
+ el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Na start masz tylko jeden darmowy przedmiot. Kolejne dodatki możesz zdobyć w sklepie.</p><div class="inventory-slots">'+slots+'</div><div id="inventoryPicker"></div><div class="center" style="margin-top:16px"><button class="action red" onclick="clearInventory()">🧹 Wyczyść ekwipunek</button></div>';
 }
+function clearInventory(){if(!confirm('Wyczyścić ekwipunek? Zostanie tylko jedna darmowa rzecz — szalik.'))return;if(!confirm('Na pewno wyczyścić wszystkie założone i kupione dodatki?'))return;ownedItems=['scarf'];equippedItems={'0':'scarf'};saveBoneGame();renderInventory(document.getElementById('gameSubView'));alert('Ekwipunek wyczyszczony. Został darmowy szalik.')}
 function inventorySlot(i){
  const picker=document.getElementById('inventoryPicker');if(!picker)return;
  if(!ownedItems.length){picker.innerHTML='<div class="game-item center"><button class="action dark" onclick="closeInventoryPicker()">✕ Zamknij</button><p>Nie masz jeszcze żadnych przedmiotów. Odwiedź sklep Karmela!</p></div>';return}
