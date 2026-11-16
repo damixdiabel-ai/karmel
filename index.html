@@ -79,13 +79,81 @@ body.white .music-card.selected{outline:3px solid #a9c2e4;background:#f2f6fc}
 .track-icon{width:58px;height:58px;flex:none;border-radius:15px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,#e8eef8,#c6d5e9)}
 .track-info{min-width:0;flex:1}.track-info b{display:block;color:#263b58}.track-info small{color:#708096}
 #musicLyric{min-height:34px;color:#345b91;font-size:18px;font-weight:800}
+
+/* PORTALE KARMELA — nowa kraina kości */
+.portal-hub{overflow:hidden}
+.portal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px;margin:22px 0 8px}
+.portal-card{position:relative;min-height:220px;border:2px solid var(--portal);border-radius:22px;padding:18px 12px;color:#fff;background:radial-gradient(circle at 50% 22%,var(--portalGlow),#111827 72%);box-shadow:0 0 22px color-mix(in srgb,var(--portal) 35%,transparent),inset 0 0 25px #fff1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform .25s,filter .25s}
+.portal-card:hover{transform:translateY(-6px) scale(1.025);filter:brightness(1.2)}
+.portal-card b{font-size:16px}.portal-card small{color:#fffC;font-weight:700}.portal-card .portal-orb{font-size:48px;filter:drop-shadow(0 0 14px var(--portal));animation:orbPulse 2.4s ease-in-out infinite}
+.portal-card .portal-status{font-size:11px;letter-spacing:1px;font-weight:950;padding:6px 10px;border-radius:20px;background:#0007}
+.portal-card.locked-portal{filter:grayscale(.8) brightness(.65)}
+.portal-card.locked-portal:after{content:"🔒";position:absolute;top:10px;right:12px;font-size:24px;filter:drop-shadow(0 2px 4px #000)}
+.portal-card.p0{--portal:#e9a34d;--portalGlow:#ffcf75}.portal-card.p1{--portal:#48c9ff;--portalGlow:#146bba}.portal-card.p2{--portal:#54db8a;--portalGlow:#167347}.portal-card.p3{--portal:#ff704d;--portalGlow:#a52b1b}.portal-card.p4{--portal:#c38aff;--portalGlow:#6c2fbd}
+@keyframes orbPulse{50%{transform:scale(1.13) rotate(5deg);filter:drop-shadow(0 0 24px var(--portal))}}
+.portal-room-panel{position:relative;min-height:620px}
+.portal-topline{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bone-counter{position:sticky;top:12px;z-index:3;padding:10px 16px;border:1px solid #fff5;border-radius:15px;background:#080b16eF;box-shadow:0 5px 22px #0007;color:#ffe18a;font-size:20px}
+.bone-stage{height:230px;display:grid;place-items:center;position:relative}
+.bone-button{width:145px;height:145px;border:2px solid #fff9;border-radius:50%;font-size:76px;cursor:pointer;background:radial-gradient(circle at 35% 25%,#fff9d7,#e5a94f 55%,#8e4d1d);box-shadow:0 0 0 10px #ffffff12,0 0 35px #ffc66d88,inset 0 -12px 20px #75401b66;transition:transform .12s,filter .2s}
+.bone-button:hover{transform:scale(1.07) rotate(-5deg)}.bone-button:active{transform:scale(.91) rotate(8deg)}.bone-button:disabled{cursor:wait;filter:grayscale(.4);transform:scale(.94)}
+.bone-pop{position:absolute;left:calc(50% + 68px);top:48px;opacity:0;transform:translate(0,0) scale(1);pointer-events:none;color:#aaffb7;font-size:26px;font-weight:1000;text-shadow:0 3px 8px #000;white-space:nowrap}
+.bone-pop.show{animation:bonePop 1s ease-out forwards}
+@keyframes bonePop{0%{opacity:0;transform:translate(0,12px) scale(1.1)}15%{opacity:1;transform:translate(5px,-5px) scale(1)}65%{opacity:.9;transform:translate(18px,-18px) scale(.72)}100%{opacity:0;transform:translate(30px,-28px) scale(.08)}}
+.cooldown-label{font-weight:800;color:var(--gold);min-height:24px}.cooldown-track{height:9px;max-width:340px;margin:10px auto 22px;background:#090b13;border-radius:20px;overflow:hidden;border:1px solid #ffffff30}
+.cooldown-track i{display:block;width:100%;height:100%;background:linear-gradient(90deg,#080808,#555,#080808);transform:translateX(-100%);border-radius:20px}
+.cooldown-track i.ready{animation:cooldownSweep 1s linear forwards}
+@keyframes cooldownSweep{to{transform:translateX(0)}}
+.game-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:20px 0}
+.admin-tools{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:25px;padding-top:15px;border-top:1px solid #ffffff18}
+.game-subview{margin:18px 0;padding:18px;border:1px solid var(--line);border-radius:20px;background:#0003;text-align:left;animation:appear .25s ease}
+.game-subview h3{text-align:center;color:var(--gold)}
+.game-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.game-item{padding:15px;border:1px solid #ffffff28;border-radius:16px;background:#ffffff09}
+.game-item .item-icon{font-size:34px;display:block;text-align:center}.game-item h4{text-align:center;margin:8px 0}.game-item p{font-size:13px;color:var(--muted);min-height:34px}
+.game-item button{width:100%;margin-top:8px}
+.inventory-slots{display:grid;grid-template-columns:repeat(4,minmax(60px,1fr));gap:10px;max-width:560px;margin:16px auto}
+.inventory-slot{min-height:90px;border:2px solid #ffffff45;border-radius:14px;background:#ffffff08;color:#fff;display:grid;place-items:center;font-size:27px;cursor:pointer;position:relative}
+.inventory-slot.empty:after{content:"+";color:#ffffff55;font-size:36px;font-weight:300}
+.inventory-slot small{font-size:10px;position:absolute;bottom:5px}
+.inventory-preview{text-align:center;font-size:18px;margin:12px}
+.inventory-preview .dog-emoji{font-size:75px;display:block}
+@media(max-width:560px){.portal-card{min-height:175px}.bone-button{width:125px;height:125px;font-size:65px}.portal-room-panel{padding:13px}.inventory-slots{grid-template-columns:repeat(3,minmax(60px,1fr))}}
+
 </style></head>
 <body><main><header class="top"><div class="logo"><span>🐾</span><h1>KARMEL</h1><span>🐾</span></div><p class="tag">kfsz</p><div class="tabs"><button class="tab active" data-page="home">🏡 Domek</button><button class="tab" data-page="goals">🎯 Cele</button><button class="tab" data-page="charts">📈 Wykresy</button><button class="tab" data-page="memory">📚 Pamięć</button><button class="tab" data-page="portal">🌀 Portal</button><button class="tab" data-page="music">🎵 Gramofon</button></div></header>
 <section id="home" class="page active"><div class="panel center"><div class="hero"><div class="scene"><div class="house" id="dogHouse"><div class="door"></div></div><div class="dog"><div class="wardrobe"><span class="shades"></span><span class="chain"></span><span class="watch"></span><span class="hat"></span><span class="shoes"></span><span class="scarf"></span><span class="bow"></span><span class="badge">✦</span></div><div class="tail" id="tail"></div><div class="ear l"></div><div class="ear r"></div><div class="body"></div><div class="chest"></div><div class="leg a"></div><div class="leg b"></div><div class="paw a"></div><div class="paw b"></div><div class="head"><div class="eye l"></div><div class="eye r"></div><div class="snout"></div><div class="nose"></div><div class="smile"></div></div></div></div></div><h2>Hej! Jestem Karmel 🐶</h2><p class="muted" id="levelDesc">Zbieramy na moje psie marzenia!</p><div class="small-label">Skarbonka Karmela</div><div class="jar"><div class="jar-coins" id="jarCoins"></div></div><div class="big" style="font-size:clamp(32px,7vw,52px)"><span class="gold">zł</span> <span id="balance">0,00</span></div><div class="muted" id="percent">0% celu</div><button class="action dark" onclick="bark()">🐶 Posłuchaj Karmela</button><div class="lyrics-box"><div class="lyric-label">🎤 PIOSENKA KARMELA — GŁOS</div><div id="lyricLine">Włącz muzykę i śpiewaj razem z Karmelkiem!</div></div><div class="outfit-info" id="outfitInfo">🐾 Styl Karmela: naturalny — następny dodatek przy 100 zł!</div></div><div class="panel"><div class="grid"><div class="stat">🏅 Mój poziom<b id="level">Mały domek</b></div><div class="stat">🐾 Wpłaty<b id="income">0,00 zł</b></div><div class="stat">🦴 Wydatki<b id="expense">0,00 zł</b></div></div><div class="actions" style="margin-top:16px"><button class="action" onclick="change(10)">＋ Dodaj 10 zł</button><button class="action red" onclick="change(-10)">－ Odejmij 10 zł</button><button class="action dark" onclick="customAmount()">✏️ Własna kwota</button><button class="action dark" onclick="clearAll()">🧹 Wyczyść licznik</button></div></div></section>
 <section id="goals" class="page"><div class="panel center"><h2>🎯 Wielki cel Karmela</h2><p class="muted">Zbudujmy razem coś naprawdę wyjątkowego!</p><div class="big"><span class="gold" id="goalBalance">0,00</span> zł</div><h2>z 1000,00 zł</h2><div class="bar"><i id="goalBar"></i></div><p id="goalText" class="muted">Brakuje 1000,00 zł</p><div class="grid"><div class="stat">🌱 Początek<b>0 zł</b></div><div class="stat">🏡 Półmetek<b>500 zł</b></div><div class="stat">👑 Wielki finał<b>1000 zł</b></div></div></div><div class="panel"><h3>✨ Poziomy budy</h3><p>100 zł — przytulne legowisko</p><p>250 zł — większa buda i zabawki</p><p>500 zł — psi pałacyk</p><p>750 zł — willa, okulary i korona</p><p>1000 zł — spełniony wielki cel!</p></div><div class="panel"><h2>🌟 Marzenia do zdobycia</h2><p class="muted center">Po wielkim celu Karmela czekają kolejne fajne rzeczy!</p><div class="goal-dreams"><div class="dream-card"><span class="dream-icon">💻</span><h3>Wymarzony laptop</h3><p>Do grania, nauki i tworzenia!</p></div><div class="dream-card"><span class="dream-icon">🖨️</span><h3>Drukarka 3D</h3><p>Do drukowania własnych pomysłów i modeli!</p></div></div></div></section>
 <section id="charts" class="page"><div class="panel center"><h2>🌌 Nocne wykresy Karmela</h2><div class="nightdog"><div><div class="stars">✦　✧　✦　✧</div><div class="dog"><div class="tail"></div><div class="ear l"></div><div class="ear r"></div><div class="body"></div><div class="chest"></div><div class="leg a"></div><div class="leg b"></div><div class="paw a"></div><div class="paw b"></div><div class="head"><div class="eye l"></div><div class="eye r"></div><div class="snout"></div><div class="nose"></div><div class="smile"></div></div></div></div></div><p class="muted">Karmel patrzy na gwiazdy… a tam widać każdą wpłatę i wydatek.</p><div class="chart"><svg id="chartSvg" viewBox="0 0 700 220" preserveAspectRatio="none"><polyline id="chartLine" points="0,200 700,200" fill="none" stroke="#65c7ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="grid"><div class="stat">Wpłaty<b id="chartIncome">0,00 zł</b></div><div class="stat">Wydatki<b id="chartExpense">0,00 zł</b></div></div><button class="action red" onclick="clearCharts()">🧽 Wyczyść wykresy</button></div></section>
 <section id="memory" class="page"><div class="panel center"><h2>📚 Pamięć Karmela</h2><p class="muted">Zapisuję wszystkie wpłaty i wydatki, żeby nic nie umknęło!</p><div class="bookdog"><div class="book">📖</div><div class="dog"><div class="ear l"></div><div class="ear r"></div><div class="body"></div><div class="chest"></div><div class="leg a"></div><div class="leg b"></div><div class="paw a"></div><div class="paw b"></div><div class="head"><div class="eye l"></div><div class="eye r"></div><div class="snout"></div><div class="nose"></div><div class="smile"></div></div></div><div class="book">🦴</div></div><h3>🧠 Pamięć wpłat i wydatków</h3><div class="history" id="history"><p class="muted">Na razie pusto. Pierwsza wpłata pojawi się tutaj!</p></div><button class="action red" onclick="clearHistory()">Wyczyść pamięć historii</button></div></section>
-<section id="portal" class="page"><div class="panel center"><h2>🌀 Tajemniczy portal</h2><p class="muted">Karmel wypatrzył dziwne przejście do innego wymiaru…</p><div class="portal locked" id="portalDoor" title="Portal"></div><h3 id="portalState">🔒 Portal zablokowany</h3><p id="portalHint" class="muted">Zbierz 100 zł, aby odblokować teleport!</p><button class="action" id="teleport" disabled onclick="openPortalRoom()">Teleportuj</button></div></section>
+<section id="portal" class="page">
+<div class="panel center portal-hub">
+  <h2>🌀 Kraina pięciu portali</h2>
+  <p class="muted">Każdy portal prowadzi do innego wymiaru Karmela. Zbieraj kości, odblokowuj światy i zdobywaj skarby!</p>
+  <div class="portal-grid" id="portalGrid">
+    <button class="portal-card p0" onclick="choosePortal(0)"><span class="portal-orb">🌀</span><b>Portal Początku</b><small>Wejście za darmo</small><span class="portal-status">OTWARTY</span></button>
+    <button class="portal-card p1" onclick="choosePortal(1)"><span class="portal-orb">🌊</span><b>Ocean Kości</b><small>🦴 1 000 kości</small><span class="portal-status" id="portalLock1">🔒 ZABLOKOWANY</span></button>
+    <button class="portal-card p2" onclick="choosePortal(2)"><span class="portal-orb">🌿</span><b>Leśny Wymiar</b><small>🦴 10 000 kości</small><span class="portal-status" id="portalLock2">🔒 ZABLOKOWANY</span></button>
+    <button class="portal-card p3" onclick="choosePortal(3)"><span class="portal-orb">🔥</span><b>Kraina Ognia</b><small>🦴 100 000 kości</small><span class="portal-status" id="portalLock3">🔒 ZABLOKOWANY</span></button>
+    <button class="portal-card p4" onclick="choosePortal(4)"><span class="portal-orb">✨</span><b>Wymiar Legend</b><small>🦴 1 000 000 kości</small><span class="portal-status" id="portalLock4">🔒 ZABLOKOWANY</span></button>
+  </div>
+</div>
+<div class="panel center portal-room-panel" id="portalGame" style="display:none">
+  <div class="portal-topline"><button class="action dark" onclick="leavePortal()">← Portale</button><div class="bone-counter">🦴 <b id="boneCount">0</b></div></div>
+  <h2 id="activePortalTitle">Portal Początku</h2>
+  <p class="muted">Klikaj kość, zdobywaj kości i rozwijaj kolekcję Karmela!</p>
+  <div class="bone-stage"><button id="boneButton" class="bone-button" onclick="collectBone()" aria-label="Zbierz kość">🦴</button><span id="bonePop" class="bone-pop">+1</span></div>
+  <p id="boneCooldown" class="cooldown-label">Gotowe do kliknięcia!</p>
+  <div class="cooldown-track"><i id="cooldownFill"></i></div>
+  <div class="game-nav">
+    <button class="action dark" onclick="openGameView('upgrades')">⬆️ Ulepszenia</button>
+    <button class="action dark" onclick="openGameView('shop')">🛍️ Sklep</button>
+    <button class="action dark" onclick="openGameView('inventory')">🎒 Ekwipunek</button>
+  </div>
+  <div id="gameSubView" class="game-subview" style="display:none"></div>
+  <div class="admin-tools"><button class="action dark" onclick="adminBones()">🛠️ Nadaj kości</button><button class="action red" onclick="adminClearBones()">🗑️ Wyczyść kości</button></div>
+</div>
+</section>
 
 <section id="music" class="page"><div class="panel center"><p class="muted" style="letter-spacing:3px;font-weight:800">KARMEL RECORDS • PLAYER</p><h2>🎶 Gramofon Karmela</h2><p class="muted">Wybierz piosenkę, połóż igłę i posłuchaj autorskich melodii Karmelka.</p><div class="record-wrap"><div class="record" id="vinyl"><div class="record-center">🐾</div></div></div><div id="nowPlaying" style="font-weight:850;color:#345b91">Teraz: cisza przed koncertem</div><p id="musicLyric">Wybierz utwór z playlisty.</p><div class="actions"><button class="action" id="musicPlay" onclick="toggleMusic()">▶ Odtwórz</button><button class="action dark" onclick="stopMusic()">■ Stop</button><button class="action dark" onclick="speakCurrentLyric()">🎤 Powiedz tekst</button></div><p class="muted" style="font-size:13px">Głos jest syntezowany przez przeglądarkę. Kliknij „Powiedz tekst”, jeśli przeglądarka nie uruchomi go automatycznie.</p></div><div class="panel"><h3>💿 Kolekcja płyt</h3><div class="music-playlist" id="playlist"></div></div><div class="panel"><h3>🎧 Małe studio Karmela</h3><p class="muted">Muzyka jest autorska i generowana na stronie — nie musisz nic pobierać.</p><div class="grid"><div class="stat">🎼 Utwory<b>4 piosenki</b></div><div class="stat">🎤 Wokal<b>Polski głos</b></div><div class="stat">🐶 Wykonawca<b>Karmel</b></div></div></div></section>
 <section id="portalroom" class="page"><div class="panel center"><h1>🌀 Portal Karmela</h1><p class="muted">To miejsce na razie jest tajemnicą…</p><div class="empty-space"></div><button class="action" onclick="closePortalRoom()">⬅ Wróć</button></div></section><div class="footer">Karmel • Psia skarbonka pełna przygód 🐾</div></main><div class="celebrate" id="celebration" onclick="hideCelebration()"><div class="confetti-rain"></div><div class="celebrate-card"><h2>🎉 Brawo!</h2><p>Karmel jest coraz szczęśliwszy!</p><button class="action" onclick="event.stopPropagation();hideCelebration()">Dalej 🐾</button></div></div><button class="sound" id="sound">♫ Włącz nową muzykę</button>
@@ -126,4 +194,82 @@ function stopMusic(){if(musicTimer)clearInterval(musicTimer);musicTimer=null;if(
 document.getElementById('sound').addEventListener('click',toggleMusic);renderPlaylist();
 function bark(){try{let a=new(window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.type='sawtooth';o.frequency.setValueAtTime(430,a.currentTime);o.frequency.exponentialRampToValueAtTime(115,a.currentTime+.16);g.gain.setValueAtTime(.13,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.2);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.21);setTimeout(()=>a.close(),350)}catch(e){}}function openPortalRoom(){if(balance<100)return;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('portalroom').classList.add('active');document.body.className='portal-room'}function closePortalRoom(){showPage('portal')}function celebrate(amount){let o=document.getElementById('celebration');if(!o)return;let h=o.querySelector('h2');h.style.fontSize=(amount===1000?44:amount>=700?38:amount>=400?33:28)+'px';h.textContent=amount===1000?'🏆 WIELKI FINAŁ! KARMEL TAŃCZY! 🐶':'🎉 Brawo! '+amount+' zł! 🎉';o.querySelector('p').textContent=amount===1000?'Udało się! Zebraliście cały 1000 zł!':'Karmel jest coraz szczęśliwszy. Kolejny próg zdobyty!';let rain=o.querySelector('.confetti-rain');rain.innerHTML='';for(let i=0;i<190;i++){let p=document.createElement('i');p.className='confetti-piece';p.style.left=(Math.random()*100)+'%';p.style.background='hsl('+Math.floor(Math.random()*360)+' 90% 62%)';p.style.setProperty('--fall',(2.2+Math.random()*2.3)+'s');p.style.setProperty('--delay',(Math.random()*.9)+'s');p.style.setProperty('--drift',(Math.random()*180-90)+'px');p.style.setProperty('--spin',(Math.random()*360)+'deg');rain.appendChild(p)}o.classList.remove('show');void o.offsetWidth;o.classList.add('show')}function hideCelebration(){document.getElementById('celebration').classList.remove('show')}document.querySelectorAll('.dog').forEach(d=>d.addEventListener('click',bark));
 update();
+
+/* System kości, portali, ulepszeń i ekwipunku */
+const boneCosts=[0,1000,10000,100000,1000000];
+const portalNames=['Portal Początku','Ocean Kości','Leśny Wymiar','Kraina Ognia','Wymiar Legend'];
+const upgradeDefs=[
+ {id:'power',name:'Mocniejsza łapka',icon:'💪',desc:'Więcej kości za jedno kliknięcie.',costs:[500,2500,10000,50000,250000],values:[2,5,10,50,100],max:5},
+ {id:'speed',name:'Szybsza regeneracja',icon:'⚡',desc:'Przycisk kości szybciej wraca do gotowości.',costs:[750,3000,12000,60000,300000],values:[800,500,250,100,50],max:5}
+];
+const shopItems=[
+ {id:'chicken',name:'Czapka kurczaka',icon:'🐔',cost:50000,desc:'Zabawna czapka dla Karmela.'},
+ {id:'winter',name:'Czapka zimowa KUBA',icon:'🧢',cost:67000,desc:'Ciepła czapka z żółtym napisem KUBA.'},
+ {id:'cheese',name:'Serowe ubranko',icon:'🧀',cost:100000,desc:'Karmel zamienia się w chodzący kawałek sera.'},
+ {id:'house',name:'Domek-miska Karmela',icon:'🏠',cost:1000000,desc:'Legendarny domek w kształcie miski.'}
+];
+let bones=Math.max(0,Number(localStorage.getItem('karmelBones')||0));
+let unlockedPortals=JSON.parse(localStorage.getItem('karmelUnlockedPortals')||'[true,false,false,false,false]');
+let upgrades=JSON.parse(localStorage.getItem('karmelBoneUpgrades')||'{"power":0,"speed":0}');
+let ownedItems=JSON.parse(localStorage.getItem('karmelOwnedItems')||'[]');
+let equippedItems=JSON.parse(localStorage.getItem('karmelEquippedItems')||'{}');
+let activePortal=0,boneReady=true,boneTimer=null,gameView='home';
+function saveBoneGame(){localStorage.setItem('karmelBones',String(bones));localStorage.setItem('karmelUnlockedPortals',JSON.stringify(unlockedPortals));localStorage.setItem('karmelBoneUpgrades',JSON.stringify(upgrades));localStorage.setItem('karmelOwnedItems',JSON.stringify(ownedItems));localStorage.setItem('karmelEquippedItems',JSON.stringify(equippedItems))}
+function boneFormat(n){return Math.floor(n).toLocaleString('pl-PL')}
+function clickPower(){return [1,2,5,10,50,100][Math.min(5,upgrades.power||0)]}
+function cooldownMs(){return [1000,800,500,250,100,50][Math.min(5,upgrades.speed||0)]}
+function refreshBoneUI(){
+ const count=document.getElementById('boneCount');if(count)count.textContent=boneFormat(bones);
+ boneCosts.forEach((cost,i)=>{let card=document.querySelector('.portal-card.p'+i);if(card){card.classList.toggle('locked-portal',!unlockedPortals[i]);let status=card.querySelector('.portal-status');if(status)status.textContent=unlockedPortals[i]?'✓ ODBLOKOWANY':'🔒 ZABLOKOWANY'}});
+}
+function choosePortal(i){
+ if(unlockedPortals[i]){activePortal=i;document.getElementById('portalGrid').parentElement.style.display='none';document.getElementById('portalGame').style.display='block';document.getElementById('activePortalTitle').textContent=portalNames[i];document.getElementById('gameSubView').style.display='none';gameView='home';refreshBoneUI();window.scrollTo({top:0,behavior:'smooth'});return}
+ const cost=boneCosts[i];if(!confirm('Czy chcesz kupić portal „'+portalNames[i]+'” za '+boneFormat(cost)+' kości?'))return;
+ if(bones<cost){alert('Nie masz tylu kości! Potrzebujesz jeszcze '+boneFormat(cost-bones)+' 🦴.');return}
+ bones-=cost;unlockedPortals[i]=true;saveBoneGame();refreshBoneUI();showPortalCelebration(i);
+}
+function leavePortal(){if(boneTimer){clearTimeout(boneTimer);boneTimer=null}boneReady=true;document.getElementById('portalGame').style.display='none';document.getElementById('portalGrid').parentElement.style.display='block';document.getElementById('gameSubView').style.display='none';refreshBoneUI()}
+function collectBone(){
+ if(!boneReady)return;boneReady=false;bones+=clickPower();saveBoneGame();refreshBoneUI();
+ const pop=document.getElementById('bonePop');pop.textContent='+'+clickPower();pop.classList.remove('show');void pop.offsetWidth;pop.classList.add('show');
+ const button=document.getElementById('boneButton');button.disabled=true;
+ const fill=document.getElementById('cooldownFill');fill.classList.remove('ready');fill.style.animationDuration=cooldownMs()+'ms';void fill.offsetWidth;fill.classList.add('ready');
+ document.getElementById('boneCooldown').textContent='Kość się odnawia…';
+ boneTimer=setTimeout(()=>{boneReady=true;button.disabled=false;fill.classList.remove('ready');document.getElementById('boneCooldown').textContent='Gotowe do kliknięcia!';boneTimer=null},cooldownMs());
+}
+function openGameView(view){
+ gameView=view;const el=document.getElementById('gameSubView');el.style.display='block';
+ if(view==='upgrades')renderUpgrades(el);if(view==='shop')renderShop(el);if(view==='inventory')renderInventory(el);
+ el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function renderUpgrades(el){
+ const rows=upgradeDefs.map(u=>{let level=upgrades[u.id]||0,done=level>=u.max,cost=u.costs[level];let benefit=u.id==='power'?'+'+u.values[level]+' kości za kliknięcie':'odnowienie: '+(u.values[level]/1000)+' s';return '<div class="game-item"><span class="item-icon">'+u.icon+'</span><h4>'+u.name+'</h4><p>'+u.desc+'<br>Poziom: '+level+'/'+u.max+(done?' • MAX':'')+'<br>Następny efekt: '+(done?'Maksymalny poziom':benefit)+'</p><button class="action" '+(done?'disabled':'')+' onclick="buyUpgrade(\''+u.id+'\')">'+(done?'✓ MAX':'Ulepsz • 🦴 '+boneFormat(cost))+'</button></div>'}).join('');
+ el.innerHTML='<h3>⬆️ Warsztat ulepszeń</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><div class="game-items">'+rows+'</div>';
+}
+function buyUpgrade(id){
+ const u=upgradeDefs.find(x=>x.id===id);if(!u)return;let level=upgrades[id]||0;if(level>=u.max){alert('To ulepszenie ma już maksymalny poziom!');return}let cost=u.costs[level];if(bones<cost){alert('Nie masz tylu kości!');return}if(!confirm('Kupić „'+u.name+'” za '+boneFormat(cost)+' kości?'))return;bones-=cost;upgrades[id]=level+1;saveBoneGame();refreshBoneUI();renderUpgrades(document.getElementById('gameSubView'));
+}
+function renderShop(el){
+ const rows=shopItems.map(item=>{let owned=ownedItems.includes(item.id);return '<div class="game-item"><span class="item-icon">'+item.icon+'</span><h4>'+item.name+'</h4><p>'+item.desc+'<br>Cena: 🦴 '+boneFormat(item.cost)+'</p><button class="action" '+(owned?'disabled':'')+' onclick="buyShopItem(\''+item.id+'\')">'+(owned?'✓ Kupiono':'Kup • 🦴 '+boneFormat(item.cost))+'</button></div>'}).join('');
+ el.innerHTML='<h3>🛍️ Sklep Karmela</h3><p class="center">Twoje kości: <b>🦴 '+boneFormat(bones)+'</b></p><div class="game-items">'+rows+'</div>';
+}
+function buyShopItem(id){
+ const item=shopItems.find(x=>x.id===id);if(!item||ownedItems.includes(id))return;if(bones<item.cost){alert('Nie masz tylu kości! Brakuje '+boneFormat(item.cost-bones)+'.');return}if(!confirm('Czy chcesz kupić „'+item.name+'” za '+boneFormat(item.cost)+' kości?'))return;bones-=item.cost;ownedItems.push(id);saveBoneGame();refreshBoneUI();renderShop(document.getElementById('gameSubView'));
+}
+function renderInventory(el){
+ const slots=Array.from({length:8},(_,i)=>{let itemId=ownedItems[i],item=shopItems.find(x=>x.id===itemId);return '<button class="inventory-slot '+(item?'':'empty')+'" onclick="inventorySlot('+i+')">'+(item?item.icon:'')+(item?'<small>'+item.name+'</small>':'')+'</button>'}).join('');
+ const equipped=Object.entries(equippedItems).filter(([k,v])=>v).map(([k,v])=>{let x=shopItems.find(i=>i.id===v);return x?x.icon+' '+x.name:''}).filter(Boolean).join(' • ')||'Brak założonych przedmiotów';
+ el.innerHTML='<h3>🎒 Ekwipunek Karmela</h3><div class="inventory-preview"><span class="dog-emoji">🐶</span><b>Karmel</b><p>'+equipped+'</p></div><p class="center muted">Kliknij slot z przedmiotem, aby go założyć lub zdjąć. Puste sloty mają znak +.</p><div class="inventory-slots">'+slots+'</div>';
+}
+function inventorySlot(i){
+ const id=ownedItems[i];if(!id){alert('Ten slot jest pusty.');return}const item=shopItems.find(x=>x.id===id);if(!item)return;let isOn=equippedItems[item.id];if(!confirm((isOn?'Zdjąć':'Założyć')+' przedmiot: '+item.name+'?'))return;if(isOn)delete equippedItems[item.id];else equippedItems[item.id]=item.id;saveBoneGame();renderInventory(document.getElementById('gameSubView'));
+}
+function adminBones(){
+ const pass=prompt('Podaj hasło administratora:');if(pass===null)return;if(pass!=='@@@aleksander@@KFSZ'){alert('Nieprawidłowe hasło!');return}const raw=prompt('Ile kości dodać?');if(raw===null)return;const n=Number(raw);if(!Number.isSafeInteger(n)||n<=0){alert('Wpisz poprawną liczbę całkowitą większą od zera.');return}bones+=n;saveBoneGame();refreshBoneUI();alert('Dodano '+boneFormat(n)+' kości!')}
+function adminClearBones(){
+ const pass=prompt('Podaj hasło administratora:');if(pass===null)return;if(pass!=='@@@aleksander@@KFSZ'){alert('Nieprawidłowe hasło!');return}if(!confirm('Na pewno wyczyścić wszystkie kości?'))return;if(!confirm('Ostatnie potwierdzenie — tej operacji nie można cofnąć.'))return;bones=0;saveBoneGame();refreshBoneUI();alert('Licznik kości został wyczyszczony.')}
+function showPortalCelebration(i){
+ const overlay=document.getElementById('celebration');let h=overlay.querySelector('h2'),p=overlay.querySelector('p');h.textContent='🌟 PORTAL ODBLOKOWANY!';h.style.fontSize='clamp(25px,6vw,42px)';p.textContent='Udało się otworzyć: '+portalNames[i]+'! Karmel odkrywa nowy wymiar!';let rain=overlay.querySelector('.confetti-rain');rain.innerHTML='';for(let n=0;n<220;n++){let piece=document.createElement('i');piece.className='confetti-piece';piece.style.left=(Math.random()*100)+'%';piece.style.background='hsl('+Math.floor(Math.random()*360)+' 95% 62%)';piece.style.setProperty('--fall',(2+Math.random()*2.5)+'s');piece.style.setProperty('--delay',(Math.random()*.8)+'s');piece.style.setProperty('--drift',(Math.random()*220-110)+'px');rain.appendChild(piece)}overlay.classList.remove('show');void overlay.offsetWidth;overlay.classList.add('show')}
+
+refreshBoneUI();
 </script></body></html>
